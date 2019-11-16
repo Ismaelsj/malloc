@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+         #
+#    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2019/11/13 21:50:34 by IsMac            ###   ########.fr        #
+#    Updated: 2019/11/16 12:27:59 by isidibe-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ odir:
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	@echo " - Compiling $<"
-	$(CC) $(CFLAGS) -I $(INCLUDES_PATH) -o $@ -c $<
+	# $(CC) $(CFLAGS) -I $(INCLUDES_PATH) -o $@ -c $<
+	$(CC) -I $(INCLUDES_PATH) -o $@ -c $<
 
 clean:
 	@echo " - Cleaning objs"
@@ -66,6 +67,6 @@ test:
 	@echo " - Compiling $(TEST)"
 	$(CC) $(TEST).c -o $(TEST) $(NAME) -I $(INCLUDES_PATH)
 
-re: fclean all
+re: fclean all test
 
 .PHONY: clean fclean re odir
