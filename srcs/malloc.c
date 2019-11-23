@@ -6,7 +6,7 @@
 /*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/11 18:48:56 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/11/23 14:46:59 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void        *malloc(size_t size) {
     size = align_size(size, 16);
     type = ft_choose_pool(size);
 	block = check_free_area(type, size);
+	printf("block mem befor return: %lu\n", sizeof(block->busy));
 	return(block->mem);
 }

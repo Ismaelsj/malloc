@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/16 12:56:57 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/11/17 18:48:43 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ t_heap      new_heap(int type, size_t large_size);
 
 // utils
 void	ft_bzero(void *s, size_t n);
+void	put_base(unsigned long long value, int base);
 
 #endif

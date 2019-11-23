@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
+#    By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2019/11/16 12:27:59 by isidibe-         ###   ########.fr        #
+#    Updated: 2019/11/23 14:54:57 by IsMac            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ fclean: clean
 	@echo " - Cleaning executable"
 	@rm -f $(NAME)
 	@rm -f $(TEST)
+	@rm -rf $(OBJS_PATH)
 	@rm -f libft_malloc.so
 
 test:
