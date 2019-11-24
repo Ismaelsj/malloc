@@ -6,7 +6,7 @@
 /*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/17 18:48:43 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/11/24 20:24:20 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	1024
 
+# define BLOCK_MEM(block)       (void *)(block + 1)
+# define AREA_MEM(area)         (void *)(area + 1)
+# define BLOCK_NEXT(block)      BLOCK_MEM(block) + block->size
+# define AREA_NEXT(area)        AREA_MEM(area) + area->size
+
+// # define AREA_LIMIT(area, block, size) BLOCK_MEM(first_block) + area->size
+
 # define ALIGN_MULTIPLE 16
 
 enum					e_size
@@ -35,7 +42,7 @@ typedef struct			s_block
 {
 	size_t				size;
     int                 busy;
-    void                *mem;
+    // void                *mem;
 	struct s_block		*prev;
 	struct s_block		*next;
 }						t_block;
@@ -43,8 +50,10 @@ typedef struct			s_block
 typedef struct          s_area
 {
     t_block             *first_block;
+    int                 type;
     size_t				size;
-    int                 full;    
+    size_t              occupied;
+    int                 full; 
     struct s_area		*prev;
 	struct s_area		*next;
 }                       t_area;
@@ -65,11 +74,13 @@ void    show_alloc_mem();
 // areas
 t_block     *check_free_area(int type, size_t size);
 void        init_area(t_area *area, t_area *prev, size_t size);
+t_block     *append_new_area(t_area *area, size_t size);
 
 // blocks
-t_block     *check_free_block(t_block *first_block, size_t size);
+t_block     *check_free_block(t_area *area, size_t size);
 t_block     *append_new_block(t_block *prev, size_t size);
 void        init_new_block(t_block *new_block, size_t size);
+t_block     *check_area_limit(t_area *area, t_block *block, size_t size);
 
 // size
 size_t  get_header_size(void);
