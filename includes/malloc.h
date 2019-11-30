@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/24 20:24:20 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/11/30 14:26:02 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef MALLOC_H
 # define MALLOC_H
-# include <stdlib.h>
+// # include <stdlib.h>
 # include <sys/mman.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -42,7 +42,6 @@ typedef struct			s_block
 {
 	size_t				size;
     int                 busy;
-    // void                *mem;
 	struct s_block		*prev;
 	struct s_block		*next;
 }						t_block;
@@ -66,7 +65,7 @@ typedef struct          s_heap
 
 extern t_heap           g_type[3];
 
-void    free(void *ptr);
+void    ft_free(void *ptr);
 void    *malloc(size_t size);
 void    *realloc(void *ptr, size_t size);
 void    show_alloc_mem();
@@ -81,6 +80,11 @@ t_block     *check_free_block(t_area *area, size_t size);
 t_block     *append_new_block(t_block *prev, size_t size);
 void        init_new_block(t_block *new_block, size_t size);
 t_block     *check_area_limit(t_area *area, t_block *block, size_t size);
+
+// free
+void    check_free_alloc(t_block *block, size_t size);
+void    free_area(t_area *area);
+t_area  *get_area(t_block *first_block);
 
 // size
 size_t  get_header_size(void);

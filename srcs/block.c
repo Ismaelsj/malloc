@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/24 20:30:20 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/11/30 14:11:32 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_block             *check_free_block(t_area *area, size_t size) {
     block = area->first_block;
     if (block->busy == 0 && block->size >= size) {
         init_block(block, size);
+        area->occupied += sizeof(block) + size;
         printf("first block of size %lu at adress : %p\n", size, &block);
         return(block);
     }
@@ -35,6 +36,7 @@ t_block             *check_free_block(t_area *area, size_t size) {
         printf("block n %d, at adress : %p\n", i, block);
         if (block->busy == 0 && block->size >= size) {
             init_block(block, size);
+            area->occupied += sizeof(block) + size;
             return(block);
         }
         i++;

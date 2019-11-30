@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   area.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/24 20:25:17 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/11/30 14:08:51 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_block     *check_free_area(int type, size_t size) {
     }
     area = g_type[type].first_area;
     if (area->full == 0){
+        printf("========= size area : %lu =========\n", area->occupied);
         printf("first area at adress : %p\ndiff addr : %p %p\n", &area, &area, &area->first_block);
         return(check_free_block(area, size));
         // return(check_area_limit(area, size, type));

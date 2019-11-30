@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2019/11/24 18:25:47 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/11/30 13:58:10 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,10 @@ int main(void) {
     strncpy(str2, tmp2, 14);
     printf("str2 : %s\n", str2);
 
+    printf("Free pointer str :\n");
+    ft_free(str);
+    printf("Free pointer str2 :\n");
+    ft_free(str2);
+    printf("all done !\n");
     return(0);
 }

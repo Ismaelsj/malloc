@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+         #
+#    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2019/11/23 14:54:57 by IsMac            ###   ########.fr        #
+#    Updated: 2019/11/30 13:58:40 by isidibe-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ INCLUDES_PATH = includes/
 SRCS_NAME = block.c \
 			area.c \
 			malloc.c \
+			free.c \
 			init_global.c \
 			size.c \
 
