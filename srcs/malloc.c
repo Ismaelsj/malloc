@@ -6,7 +6,7 @@
 /*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/24 18:27:14 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/01 16:25:47 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void        *malloc(size_t size) {
 	t_block	*block;
 
 	printf("sizeof t_area : %lu\nsizeof t_block : %lu\n", sizeof(t_area), sizeof(t_block));
-    printf("size before alignement : %lu\n", size);
+    printf("asked size size before alignement : %lu\n", size);
 	size = align_size(size, 16);
-	printf("size after alignement : %lu\n", size);
+	printf("asked size after alignement : %lu\n", size);
     type = ft_choose_pool(size);
 	block = check_free_area(type, size);
 	return(BLOCK_MEM(block));

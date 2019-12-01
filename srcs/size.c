@@ -6,7 +6,7 @@
 /*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:28:15 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/17 14:33:54 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/11/30 23:45:09 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ size_t  get_page_size(int type, size_t size) {
     else if (type == SMALL)
         page = align_size((SMALL_BLOCK + get_header_size()) * NB_BLOCKS, getpagesize()) + align_size(sizeof(t_area), 16);
     else
-        page = align_size((size + get_header_size()) * NB_BLOCKS, getpagesize()) + align_size(sizeof(t_area), 16);
+        page = align_size((size + get_header_size()), getpagesize()) + align_size(sizeof(t_area), 16);
     return(page);
 }

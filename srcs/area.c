@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   area.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/30 14:08:51 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/01 16:56:17 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_block     *check_free_area(int type, size_t size) {
     
     t_area  *area;
+    t_block *block;
     int     i;
     
     i = 0;
@@ -24,15 +25,22 @@ t_block     *check_free_area(int type, size_t size) {
     }
     area = g_type[type].first_area;
     if (area->full == 0){
-        printf("========= size area : %lu =========\n", area->occupied);
+        printf("========= occupied area : %lu, %lu =========\n", area->occupied, sizeof(t_block) + size);
         printf("first area at adress : %p\ndiff addr : %p %p\n", &area, &area, &area->first_block);
-        return(check_free_block(area, size));
+        block = check_free_block(area, size);
+        if (type == LARGE)
+            area->full = 1;
+        return(block);
         // return(check_area_limit(area, size, type));
     }
     while (area->next) {
         printf("area n %d, adress : %p\n", i, area);
         if (area->full == 0) {
-            return(check_free_block(area, size));
+            block = check_free_block(area, size);
+            if (type == LARGE)
+                area->full = 1;
+            return(block);
+            // return(check_free_block(area, size));
             // return(check_area_limit(area, size, type));
         }
         i++;
@@ -44,16 +52,23 @@ t_block     *check_free_area(int type, size_t size) {
         return(NULL);
     init_area(area->next, area, get_page_size(type, size));
     printf("new area n %d, adress : %p\n", i, area->next);
-    return(check_free_block(area, size));
+    block = check_free_block(area, size);
+    if (type == LARGE)
+        area->full = 1;
+    return(block);
+    // return(check_free_block(area, size));
     // return(check_area_limit(area, size, type));
 }
 
 t_block     *append_new_area(t_area *area, size_t size) {
+
     t_block *new_block;
 
     if ((area->next = request_memory(AREA_NEXT(area), get_page_size(area->type, size))) == NULL)
         return(NULL);
     init_area(area->next, area, get_page_size(area->type, size));
+    area = area->next;
+    printf("append new area of size %lu\n", area->size);
     new_block = check_free_block(area, size);
     area->occupied += sizeof(new_block) + size;
     return(new_block);
