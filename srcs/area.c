@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/02 16:22:28 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:04:58 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,24 @@ t_block     *check_free_area(int type, size_t size) {
     
     i = 0;
     if (g_type[type].first_area == NULL) {
-        printf("create first area of type %d\n", type);
+        printf(GREEN "create first area of type %d" END "\n", type);
         g_type[type] = new_heap(type, size);
     }
     area = g_type[type].first_area;
+    printf("loop over areas :\n");
     while (area) {
-        printf("area n %d, adress : %p\n", i, area);
-        if (area->full == 0 + (sizeof(t_block) + size) <= area->size)
+        printf("    area n %d: occupied/size : %lu/%lu, full %d\n", i, area->occupied, area->size, area->full);
+        if (area->occupied + (sizeof(t_block) + size) <= area->size)
             return(get_block(area, size));
         i++;
-        if (!area->next) 
+        if (!area->next)
             break;
         area = area->next;
     }
     if ((area->next = request_memory(AREA_NEXT(area), get_page_size(type, size))) == NULL)
         return(NULL);
-    init_area(area->next, area, size, type);
-    printf("new area n %d of type %d, adress : %p\n", i, type, area->next);
+    init_area(area->next, area, size, type, size);
+    printf(YELLOW "new area n %d of type %d and size %lu" END "\n", i, type, area->next->size);
     return(get_block(area, size));
 }
 
@@ -52,8 +53,7 @@ t_block     *get_block(t_area *area, size_t size) {
     return(block);
 }
 
-void        init_area(t_area *area, t_area *prev, size_t size, int type) {
-    // area->first_block = (t_block *)&area + align_size(sizeof(t_area), 16);
+void        init_area(t_area *area, t_area *prev, size_t size, int type, size_t original_size) {
     area->first_block = (t_block *)AREA_MEM(area);
     area->size = get_page_size(type, size);
     area->type = type;
@@ -61,12 +61,15 @@ void        init_area(t_area *area, t_area *prev, size_t size, int type) {
     area->full = 0;
     area->prev = prev;
     area->next = NULL;
-    printf("area at addr : %p\n", &area);
-    printf("area size : %lu\n", area->size);
-    printf("area type : %d\n", area->type);
-    printf("area occupied : %lu\n", area->occupied);
-    printf("area full : %d\n", area->full);
-    init_new_block(area->first_block, size);
+    
+    area->first_block->size = original_size;
+    // printf("area at addr : %p\n", &area);
+    // printf("area size : %lu\n", area->size);
+    // printf("area type : %d\n", area->type);
+    // printf("area occupied : %lu\n", area->occupied);
+    // printf("area full : %d\n", area->full);
+    // init_new_block(area->first_block, size);
+    
     // area->first_block->prev = NULL;
 }
 

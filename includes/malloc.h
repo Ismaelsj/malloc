@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/02 16:18:15 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:04:26 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 
 // colors
 #define RED     "\x1b[31m"
-#define GREEN   "\x1b[32m"
-#define YELLOW  "\x1b[33m"
-#define BLUE    "\x1b[34m"
+#define GREEN   "\x1b[32m"  // new heap
+#define YELLOW  "\x1b[33m"  // new area
+#define BLUE    "\x1b[34m"  // new block
 #define MAGENTA "\x1b[35m"
 #define CYAN    "\x1b[36m"
 #define END     "\x1b[0m"
@@ -81,7 +81,7 @@ void    show_alloc_mem();
 
 // areas
 t_block     *check_free_area(int type, size_t size);
-void        init_area(t_area *area, t_area *prev, size_t size, int type);
+void        init_area(t_area *area, t_area *prev, size_t size, int type, size_t original_size);
 t_block     *append_new_area(t_area *area, size_t size);
 t_block     *get_block(t_area *area, size_t size);
 
