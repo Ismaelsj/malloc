@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 13:49:15 by IsMac             #+#    #+#             */
-/*   Updated: 2019/11/16 14:05:18 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:01:39 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_heap      new_heap(int type, size_t large_size) {
 
     new_area = request_memory(0, get_page_size(type, size));
     printf("got new memory for area of size : %lu at address :%p, rlimit : %p\n", get_page_size(type, size), &new_area, &new_area + get_page_size(type, size));
-    init_area(new_area, NULL, size);
+    init_area(new_area, NULL, size, type);
     printf("new %d area of size %lu -> %lu at adress : %p\n", TINY, size, get_page_size(type, size), &new_area);
     new_heap.type = type;
     new_heap.first_area = new_area;

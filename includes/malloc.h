@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/11/30 14:26:02 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:30:37 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@
 # define AREA_MEM(area)         (void *)(area + 1)
 # define BLOCK_NEXT(block)      BLOCK_MEM(block) + block->size
 # define AREA_NEXT(area)        AREA_MEM(area) + area->size
+
+// colors
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CYAN    "\x1b[36m"
+#define END     "\x1b[0m"
 
 // # define AREA_LIMIT(area, block, size) BLOCK_MEM(first_block) + area->size
 
@@ -72,7 +81,7 @@ void    show_alloc_mem();
 
 // areas
 t_block     *check_free_area(int type, size_t size);
-void        init_area(t_area *area, t_area *prev, size_t size);
+void        init_area(t_area *area, t_area *prev, size_t size, int type);
 t_block     *append_new_area(t_area *area, size_t size);
 
 // blocks
@@ -84,7 +93,8 @@ t_block     *check_area_limit(t_area *area, t_block *block, size_t size);
 // free
 void    check_free_alloc(t_block *block, size_t size);
 void    free_area(t_area *area);
-t_area  *get_area(t_block *first_block);
+// t_area  *get_area(t_block *first_block);
+t_area  *get_area(void *ptr);
 
 // size
 size_t  get_header_size(void);
