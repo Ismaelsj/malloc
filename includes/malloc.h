@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/02 14:30:37 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:18:15 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,13 @@ void    show_alloc_mem();
 t_block     *check_free_area(int type, size_t size);
 void        init_area(t_area *area, t_area *prev, size_t size, int type);
 t_block     *append_new_area(t_area *area, size_t size);
+t_block     *get_block(t_area *area, size_t size);
 
 // blocks
 t_block     *check_free_block(t_area *area, size_t size);
 t_block     *append_new_block(t_block *prev, size_t size);
 void        init_new_block(t_block *new_block, size_t size);
-t_block     *check_area_limit(t_area *area, t_block *block, size_t size);
+// t_block     *check_area_limit(t_area *area, t_block *block, size_t size);
 
 // free
 void    check_free_alloc(t_block *block, size_t size);
