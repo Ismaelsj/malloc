@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/02 17:04:26 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:57:45 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct          s_area
     t_block             *first_block;
     int                 type;
     size_t				size;
+    size_t              unset_size;
     size_t              occupied;
     int                 full; 
     struct s_area		*prev;
@@ -89,13 +90,14 @@ t_block     *get_block(t_area *area, size_t size);
 t_block     *check_free_block(t_area *area, size_t size);
 t_block     *append_new_block(t_block *prev, size_t size);
 void        init_new_block(t_block *new_block, size_t size);
-// t_block     *check_area_limit(t_area *area, t_block *block, size_t size);
+void        init_block(t_block *block, size_t size);
+
+// merge block
+int          check_mergeable_block(t_area *area, t_block *block, size_t size);
 
 // free
 void    check_free_alloc(t_block *block, size_t size);
 void    free_area(t_area *area);
-// t_area  *get_area(t_block *first_block);
-t_area  *get_area(void *ptr);
 
 // size
 size_t  get_header_size(void);
@@ -111,5 +113,6 @@ t_heap      new_heap(int type, size_t large_size);
 // utils
 void	ft_bzero(void *s, size_t n);
 void	put_base(unsigned long long value, int base);
+t_area  *get_area(void *ptr);
 
 #endif

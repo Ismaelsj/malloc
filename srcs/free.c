@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/02 14:44:34 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:59:36 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void            ft_free(void *ptr) {
         block = block->next;
     }
     block->busy = 0;
-    printf("FREE pointer freed\n");
+    printf("FREE pointer freed, block size %lu\n", block->size);
     printf("occupied size of area before clean : %lu/%lu\n", area->occupied, area->size);
     area->occupied -= sizeof(block) + block->size;
     printf("occupied size of area after clean : %lu/%lu\n", area->occupied, area->size);
@@ -44,43 +44,6 @@ void            ft_free(void *ptr) {
         printf("FREE free area of type %d\n", area->type);
         free_area(area);
     }
-    // check_free_alloc(block, block->size);
-}
-
-t_area  *get_area(void *ptr) {
-
-    t_area  *area;
-    t_block *block;
-    int     type;
-    int     i;
-    int     j;
-
-    type = 0;
-    i = 0;
-    j = 0;
-    while (type <= LARGE) {
-        printf("searching in area of type %d\n", type);
-        area = g_type[type].first_area;
-        i = 0;
-        while (area) {
-            printf("searching in area n %d\n", i);
-            block = area->first_block;
-            j = 0;
-            while (block) {
-                printf("searching for block n %d\n", j);
-                if (BLOCK_MEM(block) == ptr) {
-                    printf("blockn n %d, found in area n %d, of type %d\n", j, i, type);
-                    return(area);
-                }
-                block = block->next;
-                j++;
-            }
-            area = area->next;
-            i++;
-        }
-        type++;
-    }
-    return(NULL);
 }
 
 void    free_area(t_area *area) {
