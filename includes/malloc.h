@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/03 16:57:45 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:26:57 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,16 @@ int          check_mergeable_block(t_area *area, t_block *block, size_t size);
 // free
 void    check_free_alloc(t_block *block, size_t size);
 void    free_area(t_area *area);
+void    free_block(t_area *area, t_block *block);
 
 // size
 size_t  get_header_size(void);
 size_t  align_size(size_t size, size_t mult);
 size_t  get_page_size(int type, size_t size);
+
+// search
+t_area  *retrieve_area(void *ptr);
+t_block *retrieve_block(t_area *area, void *ptr);
 
 // memory request
 t_area      *request_memory(t_area *prev, size_t size);
@@ -113,6 +118,6 @@ t_heap      new_heap(int type, size_t large_size);
 // utils
 void	ft_bzero(void *s, size_t n);
 void	put_base(unsigned long long value, int base);
-t_area  *get_area(void *ptr);
+void	*ft_memcpy(void *s1, const void *s2, size_t n);
 
 #endif

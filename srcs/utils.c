@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/03 16:53:15 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:03:58 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ void	ft_bzero(void *s, size_t n)
 		*d++ = '\0';
 		n--;
 	}
+}
+
+void	*ft_memcpy(void *s1, const void *s2, size_t n)
+{
+	unsigned char	*cs1;
+	unsigned char	*cs2;
+
+	cs1 = (unsigned char *)s1;
+	cs2 = (unsigned char *)s2;
+	while (n--)
+		*cs1++ = *cs2++;
+	return (s1);
 }
 
 static size_t	ft_strlen(char *str)
@@ -80,38 +92,4 @@ void			put_base(unsigned long long value, int base)
 	put_base_core(value, base, len);
 }
 
-t_area  *get_area(void *ptr) {
-
-    t_area  *area;
-    t_block *block;
-    int     type;
-    int     i;
-    int     j;
-
-    type = 0;
-    i = 0;
-    j = 0;
-    while (type <= LARGE) {
-        printf("searching in area of type %d\n", type);
-        area = g_type[type].first_area;
-        i = 0;
-        while (area) {
-            printf("searching in area n %d\n", i);
-            block = area->first_block;
-            j = 0;
-            while (block) {
-                printf("searching for block n %d\n", j);
-                if (BLOCK_MEM(block) == ptr && block->busy == 1) {
-                    printf("blockn n %d, found in area n %d, of type %d\n", j, i, type);
-                    return(area);
-                }
-                block = block->next;
-                j++;
-            }
-            area = area->next;
-            i++;
-        }
-        type++;
-    }
-    return(NULL);
-}
+// 

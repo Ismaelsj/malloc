@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/03 16:59:36 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:41:37 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,14 @@ void            ft_free(void *ptr) {
     if (ptr == NULL)
         return ;
     printf("FREE pointer not null\n");
-    area = get_area(ptr);
-    if (area == NULL) {
-        printf("area not found\n");
+    area = retrieve_area(ptr);
+    block = retrieve_block(area, ptr);
+    free_block(area, block);
+}
+
+void    free_block(t_area *area, t_block *block) {
+    if (block == NULL)
         return ;
-    }
-    block = area->first_block;
-    while (block) {
-        if (BLOCK_MEM(block) == ptr)
-            break;
-        block = block->next;
-    }
     block->busy = 0;
     printf("FREE pointer freed, block size %lu\n", block->size);
     printf("occupied size of area before clean : %lu/%lu\n", area->occupied, area->size);

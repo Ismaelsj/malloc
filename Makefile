@@ -6,7 +6,7 @@
 #    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2019/12/03 16:57:06 by isidibe-         ###   ########.fr        #
+#    Updated: 2019/12/04 12:42:34 by isidibe-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,12 @@ INCLUDES_PATH = includes/
 SRCS_NAME = block.c \
 			area.c \
 			malloc.c \
+			realloc.c \
 			free.c \
 			init_global.c \
 			merge_block.c \
 			size.c \
+			search.c \
 			utils.c
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))

@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/03 16:58:33 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/04 12:51:07 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_block             *check_free_block(t_area *area, size_t size) {
         if (block->busy == 0) {
             if (block->size < size) {
                 printf("found unused block of size %lu, try to merge/extend it:\n", block->size);
-                if (check_mergeable_block(area, block, size) == 1)
+                if (check_mergeable_block(area, block, size) == 1) 
                     return(block);
             }
             else if (block->size >= size) {
