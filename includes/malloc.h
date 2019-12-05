@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/04 15:26:57 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/05 16:27:06 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@
 # define AREA_NEXT(area)        AREA_MEM(area) + area->size
 
 // colors
-#define RED     "\x1b[31m"
-#define GREEN   "\x1b[32m"  // new heap
-#define YELLOW  "\x1b[33m"  // new area
-#define BLUE    "\x1b[34m"  // new block
-#define MAGENTA "\x1b[35m"
-#define CYAN    "\x1b[36m"
-#define END     "\x1b[0m"
+#define RED     "\x1b[31m"  // free
+#define GREEN   "\x1b[32m"  // malloc
+#define YELLOW  "\x1b[33m"  // realloc
+#define BLUE    "\x1b[34m"  // area
+#define MAGENTA "\x1b[35m"  // block
+#define CYAN    "\x1b[36m"  // merge block
+#define GREY    "\x1b[90m"  // search block
+#define END     "\x1b[0m"   
 
 // # define AREA_LIMIT(area, block, size) BLOCK_MEM(first_block) + area->size
 
@@ -75,7 +76,7 @@ typedef struct          s_heap
 
 extern t_heap           g_type[3];
 
-void    ft_free(void *ptr);
+void    free(void *ptr);
 void    *malloc(size_t size);
 void    *realloc(void *ptr, size_t size);
 void    show_alloc_mem();
@@ -119,5 +120,8 @@ t_heap      new_heap(int type, size_t large_size);
 void	ft_bzero(void *s, size_t n);
 void	put_base(unsigned long long value, int base);
 void	*ft_memcpy(void *s1, const void *s2, size_t n);
+void	ft_putendl(char const *s);
+void    ft_iprint(int n);
+void	ft_putstr(char *str);
 
 #endif

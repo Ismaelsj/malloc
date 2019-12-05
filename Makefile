@@ -6,7 +6,7 @@
 #    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2019/12/04 12:42:34 by isidibe-         ###   ########.fr        #
+#    Updated: 2019/12/05 11:35:30 by isidibe-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,14 +48,14 @@ all: odir $(NAME)
 $(NAME): $(OBJS)
 	@echo " - Making $(NAME)"
 	$(CC) -shared $(CFLAGS) -o $(NAME) $^ $(LIBRARY)
-	# ln -sf $(NAME) libft_malloc.so
+	ln -sf $(NAME) libft_malloc.so
 
 odir:
 	@mkdir -p $(OBJS_PATH)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	@echo " - Compiling $<"
-	# $(CC) $(CFLAGS) -I $(INCLUDES_PATH) -o $@ -c $<
+	$(CC) $(CFLAGS) -I $(INCLUDES_PATH) -o $@ -c $<
 	$(CC) -I $(INCLUDES_PATH) -o $@ -c $<
 
 clean:
