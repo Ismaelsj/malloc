@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/05 17:14:20 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:59:32 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ void            free(void *ptr) {
     area = retrieve_area(ptr);
     ft_putendl(RED "get block :" END);
     block = retrieve_block(area, ptr);
-    ft_putendl(RED "got area and block, freeing :");
-    free_block(area, block);
+    if (area && block) {
+        ft_putendl(RED "got area and block, freeing :");
+        free_block(area, block);
+    }
+    else
+        ft_putendl(RED "no block found" END);
 }
 
 void    free_block(t_area *area, t_block *block) {

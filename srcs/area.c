@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/05 16:34:50 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/06 15:07:20 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_area      *request_memory(t_area *prev, size_t size) {
     t_area *new_alloc;
 
     if ((new_alloc = mmap(prev, size, PROT_READ|PROT_WRITE|PROT_EXEC,\
-        MAP_ANON|MAP_PRIVATE, -1, 0)) == MAP_FAILED)
+        MAP_ANONYMOUS|MAP_PRIVATE, -1, 0)) == MAP_FAILED)
         return(NULL);
     return(new_alloc);
 }

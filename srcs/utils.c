@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/05 16:27:33 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:37:53 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,34 @@ void 			ft_iprint(int n) {
         ft_iprint(a);
       }
     ft_putchar('0'+n);
+}
+
+void		ft_umaxtoa_base(unsigned long long nb, int nb_base)
+{
+	long int				i;
+	long int				j;
+	char					str[1000000];
+	char					*base;
+
+	base = "0123456789abcdef";
+	j = 1;
+	i = nb;
+	while (i >= nb_base)
+	{
+		i /= nb_base;
+		j++;
+	}
+	// if (!(str = (char*)malloc(sizeof(char) * (j + 1))))
+	// 	return (NULL);
+	str[j--] = '\0';
+	while (j >= 0)
+	{
+		str[j] = base[nb % nb_base];
+		nb /= nb_base;
+		j--;
+	}
+	ft_putendl((const char*)str);
+	// return (str);
 }
 
 // static int		len_num(unsigned long long value, int base)

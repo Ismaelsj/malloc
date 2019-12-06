@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/05 17:33:32 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/06 14:45:36 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ t_block             *check_free_block(t_area *area, size_t size) {
     ft_putendl(MAGENTA "        loop over blocks");
     while (block) {
         // printf("    block n %d of size %lu, busy %d\n", i, block->size, block->busy);
-        ft_putendl("            block");
+        ft_putstr("            block n ");
+        ft_iprint(i);
+        ft_putstr(" of size ");
+        ft_iprint(block->size);
+        ft_putendl("");
         if (block->busy == 0) {
-            ft_putendl("            block not busy");
+            ft_putstr("            block not busy of size : ");
+            ft_iprint(block->size);
+            ft_putendl("");
             if (block->size < size) {
                 // printf("found unused block of size %lu, try to merge/extend it:\n", block->size);
                 ft_putendl("            found block to small, try to merge/extend blocks :" END);
@@ -41,8 +47,10 @@ t_block             *check_free_block(t_area *area, size_t size) {
                     ft_putendl(MAGENTA "            block merged/extended, returning it" END);
                     return(block);
                 }
-                else
+                else {
                     ft_putendl(MAGENTA "            block not mergeable or extendable");
+                    // sleep(1);
+                }
             }
             else if (block->size >= size) {
                 // printf("found unused block of size %lu\n", block->size);
@@ -58,22 +66,26 @@ t_block             *check_free_block(t_area *area, size_t size) {
         }
         i++;
         if (!block->next) {
-            // ft_putendl("            no next block");
+            ft_putendl("            no next block, exit loop:");
             break;
         }
         block = block->next;
     }
     if (most_fited_block != NULL) {
         ft_putendl("        init found block");
+        create_intermediate_block(most_fited_block, size);
         init_block(most_fited_block, size);
-        ft_putendl("        returning block" END);
+        ft_putendl(MAGENTA "        returning block" END);
+        // sleep(1);
         return(most_fited_block);
     }
     ft_putendl("        no block found, append new one");
     block->next = append_new_block(block, size);
-    area->unset_size -= sizeof(block) + block->size; 
+    ft_putendl("new block created");
+    area->unset_size -= sizeof(block) + block->size;
     // printf(BLUE "append new block n %d, of size %lu, area unset size : %lu" END "\n", i, block->next->size, area->unset_size);
     ft_putendl("        block created, returning it" END);
+    sleep(1);
     return(block->next);
 }
 
@@ -82,10 +94,15 @@ t_block         *append_new_block(t_block *prev, size_t size) {
     t_block *new_block;
 
     // printf("append new block\n");
+    ft_putendl("append new block 1");
     new_block = BLOCK_NEXT(prev);
+    ft_putendl("append new block 2");
     new_block->size = size;
+    // ft_putendl("append new block 3");
     new_block->prev = prev;
+    // ft_putendl("append new block 4");
     new_block->next = NULL;
+    // ft_putendl("append new block 5");
     new_block->busy = 1;
 
     return(new_block);

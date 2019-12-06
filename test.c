@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/05 17:39:05 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/06 10:42:39 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,23 @@ int main(void) {
     strncpy(str_bis, tmp, 8);
     printf("str : %s\n", str_bis);
 
-    printf(RED "\nFree pointer str :" END "\n");
-    free(str);
+    printf(RED "\nFree pointer str2 :" END "\n");
+    free(str2);
 
     printf("\n========= Reallocation 1 =========\n");
-    str2 = (char *)realloc(str2, sizeof(char) * 30);
+    str = (char *)realloc(str, sizeof(char) * 17);
     // printf("size of alocated string : %lu\n");
     printf("size of alocated string : %lu\n", sizeof(str2));
-    printf("str : %s\n", str2);
-    strncpy(str2, "Chaque zone doit pouvoir contenir au moins 100 allocations.", 29);
-    printf("str : %s\n", str2);
+    printf("str : %s\n", str);
+    strncpy(str, "Chaque zone doit pouvoir contenir au moins 100 allocations.", 16);
+    printf("str : %s\n", str);
+
+
+    printf(RED "\nFree pointer str2 :" END "\n");
+    free(str);
+    printf(RED "\nFree pointer str2 :" END "\n");
+    free(str_bis);
+    return(0);
 
     printf("\n========= Reallocation 2 =========\n");
     str2 = (char *)realloc(str2, sizeof(char) * 15);

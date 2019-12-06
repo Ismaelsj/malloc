@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/05 16:27:06 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:37:58 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void        init_block(t_block *block, size_t size);
 
 // merge block
 int          check_mergeable_block(t_area *area, t_block *block, size_t size);
+void        create_intermediate_block(t_block *block, size_t wanted_size);
 
 // free
 void    check_free_alloc(t_block *block, size_t size);
@@ -123,5 +124,6 @@ void	*ft_memcpy(void *s1, const void *s2, size_t n);
 void	ft_putendl(char const *s);
 void    ft_iprint(int n);
 void	ft_putstr(char *str);
+void		ft_umaxtoa_base(unsigned long long nb, int nb_base);
 
 #endif
