@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 15:27:14 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 16:52:48 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ enum					e_size
 
 typedef struct			s_block
 {
-    // unsigned int        crc32;
+    unsigned int        crc32;
 	size_t				size;
     int                 busy;
 	struct s_block		*prev;
@@ -59,6 +59,7 @@ typedef struct			s_block
 
 typedef struct          s_area
 {
+    unsigned int        crc32;
     t_block             *first_block;
     int                 type;
     size_t				size;

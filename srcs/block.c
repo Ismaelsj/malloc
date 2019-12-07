@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 15:38:32 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 16:52:34 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ t_block             *check_free_block(t_area *area, size_t size) {
         ft_putstr(" at addr : ");
         ft_umaxtoa_base((unsigned long long)block, 16);
         ft_putstr("         CRC32 : ");
-        ft_umaxtoa_base((unsigned long long)crc32((void*)block, 8), 10);
+        ft_umaxtoa_base((unsigned long long)crc32((void*)block+sizeof(unsigned int), 12), 10);
+        // ft_putstr("         crc32 : ");
+        // ft_iprint(block->crc32);
         // ft_putendl("");
+        // block->crc32 += 1;
         if (block->busy == 0) {
             ft_putstr("            block not busy of size : ");
             ft_iprint(block->size);
@@ -78,10 +81,10 @@ t_block             *check_free_block(t_area *area, size_t size) {
         tmp = (unsigned long long)block;
         tmp_size = block->size;
         block = block->next;
-        ft_putstr("             diff block, block->next addr : ");
-        ft_umaxtoa_base((unsigned long long)block - tmp, 10);
-        ft_putstr("                                     -> ");
-        ft_umaxtoa_base(((unsigned long long)block - tmp) - tmp_size, 10);
+        // ft_putstr("             diff block, block->next addr : ");
+        // ft_umaxtoa_base((unsigned long long)block - tmp, 10);
+        // ft_putstr("                                     -> ");
+        // ft_umaxtoa_base(((unsigned long long)block - tmp) - tmp_size, 10);
         if (((unsigned long long)block - tmp) == 0)
             sleep(1);
     }
@@ -108,15 +111,11 @@ t_block         *append_new_block(t_block *prev, size_t size) {
     t_block *new_block;
 
     // printf("append new block\n");
-    ft_putendl("append new block 1");
+    ft_putendl("append new block ");
     new_block = BLOCK_NEXT(prev);
-    ft_putendl("append new block 2");
     new_block->size = size;
-    // ft_putendl("append new block 3");
     new_block->prev = prev;
-    // ft_putendl("append new block 4");
     new_block->next = NULL;
-    // ft_putendl("append new block 5");
     new_block->busy = 1;
 
     return(new_block);
