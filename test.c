@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/06 10:42:39 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 15:35:48 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int main(void) {
 
 
     printf("\n========= Allocation 2 =========\n");
-    printf(" -- sizeof malloc : %lu\n", sizeof(char) * 10);
-    str2 = (char *)malloc(sizeof(char) * 10);
+    printf(" -- sizeof malloc : %lu\n", sizeof(char) * 5);
+    str2 = (char *)malloc(sizeof(char) * 5);
     // printf("size of alocated string : %lu\n");
     printf("size of alocated string : %lu\n", sizeof(str2));
     strncpy(str2, tmp2, 14);
@@ -65,8 +65,18 @@ int main(void) {
     strncpy(str_bis, tmp, 8);
     printf("str : %s\n", str_bis);
 
-    printf(RED "\nFree pointer str2 :" END "\n");
-    free(str2);
+    printf("\n========= Allocation 3 =========\n");
+    printf(" -- sizeof malloc : %lu\n", sizeof(char) * 60);
+    str3 = (char *)malloc(sizeof(char) * 60);
+    // printf("size of alocated string : %lu\n");
+    printf("size of alocated string : %lu\n", sizeof(str3));
+    strncpy(str3, "Chaque zone doit pouvoir contenir au moins 100 allocations.", 59);
+    printf("str2 : %s\n", str3);
+
+    return(0);
+
+    // printf(RED "\nFree pointer str2 :" END "\n");
+    // free(str2);
 
     printf("\n========= Reallocation 1 =========\n");
     str = (char *)realloc(str, sizeof(char) * 17);

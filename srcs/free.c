@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:59:32 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 13:55:52 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    free_block(t_area *area, t_block *block) {
     ft_putstr("/");
     ft_iprint(area->size);
     ft_putendl("");
-    area->occupied -= sizeof(block) + block->size;
+    area->occupied -= sizeof(t_block) + block->size;
     ft_putstr("occupied size of area after clean : ");
     ft_iprint(area->occupied);
     ft_putstr("/");

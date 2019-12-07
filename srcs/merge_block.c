@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/06 17:16:04 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 15:23:52 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int      merge_existing_block(t_block *block, size_t size) {
 void        create_intermediate_block(t_block *block, size_t wanted_size) {
 
     t_block *rest;
-    t_block *tmp_block;
+    // t_block *tmp_block;
     // t_block *tmp_rest;
     size_t  rest_size;
 
@@ -69,123 +69,78 @@ void        create_intermediate_block(t_block *block, size_t wanted_size) {
     ft_putstr(" and a wanted size of ");
     ft_iprint(wanted_size);
     ft_putendl("");
-    if (block->prev) {
-        ft_putstr("block prev size ");
-        ft_iprint(block->prev->size);
-        ft_putendl("");
-    }
-    ft_putstr("block size ");
-    ft_iprint(block->size);
-    ft_putendl("");
-    if (block->next) {
-        ft_putstr("block next size ");
-        ft_iprint(block->next->size);
-        ft_putendl("");
-    }
+    
     rest_size = block->size - wanted_size;
+
     ft_putstr("rest size ");
     ft_iprint(rest_size);
     ft_putendl("");
+
     if (block->size > wanted_size && rest_size > sizeof(t_block)) {
         block->size = wanted_size;
+
         ft_putstr("creating intermediate block after block of size ");
         ft_iprint(block->size);
         ft_putendl("");
+
         rest = BLOCK_NEXT(block);
-        
-        // if (block->prev) {
-        //     tmp_block = block->prev;
-        //     ft_putstr("block prev size ");
-        //     ft_iprint(tmp_block->size);
-        //     ft_putendl("");
-        //     ft_putstr("block prev addr : ");
-        //     ft_umaxtoa_base((unsigned long long)&tmp_block, 16);
-        // }
-        // ft_putstr("block size ");
-        // ft_iprint(block->size);
-        // ft_putendl("");
-        // ft_putstr("block addr : ");
-        // ft_umaxtoa_base((unsigned long long)&block, 16);
-        // if (block->next) {
-        //     tmp_block = block->next;
-        //     ft_putstr("block next size ");
-        //     ft_iprint(tmp_block->size);
-        //     ft_putendl("");
-        //     ft_putstr("block next addr : ");
-        //     ft_umaxtoa_base((unsigned long long)&tmp_block, 16);
-        // }
-        // ft_putendl("");
-        
 
-
-        // rest->size = rest_size - sizeof(rest);
-        // rest->busy = 0;
-        // rest->prev = block;
-        // rest->next = block->next;
-        // if (rest->next)
-        //     rest->next->prev = rest;
-        // block->next = rest;
-        
-        rest->size = rest_size - sizeof(rest);
+        rest->size = rest_size - sizeof(t_block);
         rest->busy = 0;
         rest->prev = block;
-        tmp_block = block;
-        block = block->next;
-        rest->next = block;
-        if (block) {
-            block->prev = rest;
-        }
-        tmp_block->next = rest;
-
-
-
+        rest->next = block->next;
+        if (rest->next)
+            rest->next->prev = rest;
+        block->next = rest;
+        
         // if (block->prev) {
         //     tmp_block = block->prev;
         //     ft_putstr("block prev size ");
         //     ft_iprint(tmp_block->size);
         //     ft_putendl("");
-        //     ft_putstr("block prev addr : ");
-        //     ft_umaxtoa_base((unsigned long long)&tmp_block, 16);
+        //     ft_putstr("     block prev addr : ");
+        //     ft_umaxtoa_base((unsigned long long)tmp_block, 16);
         // }
         // ft_putstr("block size ");
         // ft_iprint(block->size);
         // ft_putendl("");
-        // ft_putstr("block addr : ");
-        // ft_umaxtoa_base((unsigned long long)&block, 16);
+        // ft_putstr("     block addr : ");
+        // ft_umaxtoa_base((unsigned long long)block, 16);
         // if (block->next) {
         //     tmp_block = block->next;
         //     ft_putstr("block next size ");
         //     ft_iprint(tmp_block->size);
         //     ft_putendl("");
-        //     ft_putstr("block next addr : ");
-        //     ft_umaxtoa_base((unsigned long long)&tmp_block, 16);
+        //     ft_putstr("     block next addr : ");
+        //     ft_umaxtoa_base((unsigned long long)tmp_block, 16);
         // }
         // ft_putendl("");
 
-        ft_putendl("intermediate block created end linked");
+        // ft_putendl("intermediate block created end linked");
         // tmp_rest = rest->prev;
         // ft_putstr("rest prev size ");
         // ft_iprint(tmp_rest->size);
         // ft_putendl("");
-        // ft_putstr("rest prev addr : ");
-        // ft_umaxtoa_base((unsigned long long)&tmp_rest, 16);
+        // ft_putstr("     rest prev addr : ");
+        // ft_umaxtoa_base((unsigned long long)tmp_rest, 16);
         // ft_putstr("rest size ");
         // ft_iprint(rest->size);
         // ft_putendl("");
-        // ft_putstr("rest addr : ");
-        // ft_umaxtoa_base((unsigned long long)&rest, 16);
+        // ft_putstr("     rest addr : ");
+        // ft_umaxtoa_base((unsigned long long)rest, 16);
         // if (rest->next) {
         //     tmp_rest = rest->next;
         //     ft_putstr("rest next size ");
         //     ft_iprint(tmp_rest->size);
         //     ft_putendl("");
-        //     ft_putstr("rest next addr : ");
-        //     ft_umaxtoa_base((unsigned long long)&tmp_rest, 16);
+        //     ft_putstr("     rest next addr : ");
+        //     ft_umaxtoa_base((unsigned long long)tmp_rest, 16);
         // }
         // ft_putendl("");
     }
     else {
         ft_putendl("no rest");
+        
         block->size = wanted_size;
     }
     // ft_putstr("block size ");

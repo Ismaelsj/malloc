@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:59:54 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 13:54:12 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void         *down_sizing_block(t_area *area, t_block *block, size_t size
     ft_iprint(block->size);
     ft_putendl("");
     // printf("block down sized from %lu to %lu\n", original_size, block->size);
-    if (original_size - size > sizeof(block)) {
+    if (original_size - size > sizeof(t_block)) {
         rest = BLOCK_NEXT(block);
         rest->size = original_size - size - sizeof(rest);
         rest->busy = 0;
@@ -110,6 +110,7 @@ void                *realloc(void *ptr, size_t size) {
 
     t_area  *area;
     t_block *block;
+    size_t  aligned_size;
 
     ft_putendl(YELLOW "==== REALLOC ====");
     if (ptr == NULL) {
@@ -121,21 +122,23 @@ void                *realloc(void *ptr, size_t size) {
         free(ptr);
         return(NULL);
     }
-    size = align_size(size, 16);
+    aligned_size = align_size(size, 16);
     ft_putstr("asked size : ");
-    ft_iprint(size);
+    ft_iprint(aligned_size);
     ft_putendl("" END);
-    // printf("realloc: asked size : %lu\n", size);
+    // printf("realloc: asked aligned_size : %lu\n", aligned_size);
     if ((area = retrieve_area(ptr)) == NULL)
         return(NULL);
     ft_putendl(YELLOW "trying to find block" END);
     block = retrieve_block(area, ptr);
     ft_putendl(YELLOW "block found");
+    if (choose_pool(aligned_size) != area->type)
+        return(malloc(size));
     // printf("realloc: area and block found\n");
-    if (size < block->size) {
+    if (aligned_size < block->size) {
         ft_putendl("trying to down size block :");
-        return(down_sizing_block(area, block, size));
+        return(down_sizing_block(area, block, aligned_size));
     }
     ft_putendl("trying to up size block :");
-    return(up_sizing_block(area, block, size));
+    return(up_sizing_block(area, block, aligned_size));
 }

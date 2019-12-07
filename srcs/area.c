@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/06 15:07:20 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 13:54:57 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_block     *get_block(t_area *area, size_t size) {
     block = check_free_block(area, size);
     ft_putendl(BLUE "   got new block");
     // printf("got block of size : %lu and size of block : %lu, occupied size of area before new block : %lu\n", block->size, sizeof(block), area->occupied);
-    area->occupied += sizeof(block) + block->size;
+    area->occupied += sizeof(t_block) + block->size;
     // printf("occupied size of area : %lu/%lu\n", area->occupied, area->size);
     if (area->type == LARGE) {
         ft_putendl("    LARGE area, full");

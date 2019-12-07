@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/06 16:37:58 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 15:27:14 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ enum					e_size
 
 typedef struct			s_block
 {
+    // unsigned int        crc32;
 	size_t				size;
     int                 busy;
 	struct s_block		*prev;
@@ -118,6 +119,7 @@ t_area      *request_memory(t_area *prev, size_t size);
 t_heap      new_heap(int type, size_t large_size);
 
 // utils
+int  	choose_pool(size_t size);
 void	ft_bzero(void *s, size_t n);
 void	put_base(unsigned long long value, int base);
 void	*ft_memcpy(void *s1, const void *s2, size_t n);
@@ -125,5 +127,6 @@ void	ft_putendl(char const *s);
 void    ft_iprint(int n);
 void	ft_putstr(char *str);
 void		ft_umaxtoa_base(unsigned long long nb, int nb_base);
+unsigned int 	crc32(int *key, int len);
 
 #endif

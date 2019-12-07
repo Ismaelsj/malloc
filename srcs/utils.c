@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/06 16:37:53 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 15:26:45 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,46 +94,44 @@ void		ft_umaxtoa_base(unsigned long long nb, int nb_base)
 	// return (str);
 }
 
-// static int		len_num(unsigned long long value, int base)
-// {
-// 	int		len;
 
-// 	len = 0;
-// 	while (value / base > 0)
-// 	{
-// 		value /= base;
-// 		len++;
-// 	}
-// 	return (len + 1);
-// }
+// // ----------------------------- crc32b --------------------------------
 
-// static void		put_base_core(unsigned long long value, int base, \
-// 	int len)
-// {
-// 	char	str[len];
-// 	char	base_str[16] = "123456789abcdef";
+// url: https://stackoverflow.com/questions/21001659/crc32-algorithm-implementation-in-c-without-a-look-up-table-and-with-a-public-li
 
-// 	// base_str = "123456789abcdef";
-// 	str[len] = '\0';
-// 	len--;
-// 	while (len >= 0)
-// 	{
-// 		str[len] = base_str[value % base];
-// 		value /= base;
-// 		len--;
-// 	}
-// 	if (base == 16)
-// 		ft_putstr("0x");
-// 	ft_putstr(str);
-// }
+// /* This is the basic CRC-32 calculation with some optimization but no
+// table lookup. The the byte reversal is avoided by shifting the crc reg
+// right instead of left and by using a reversed 32-bit word to represent
+// the polynomial.
+//    When compiled to Cyclops with GCC, this function executes in 8 + 72n
+// instructions, where n is the number of bytes in the input message. It
+// should be doable in 4 + 61n instructions.
+//    If the inner loop is strung out (approx. 5*8 = 40 instructions),
+// it would take about 6 + 46n instructions. */
 
-// void			put_base(unsigned long long value, int base)
-// {
-// 	int		len;
+// unsigned int crc32b(unsigned char *message) {
+unsigned int 	crc32(int *key, int len) {
+   int i;
+   int j;
+   unsigned int byte;
+   unsigned int crc;
+   unsigned int mask;
 
-// 	len = len_num(value, base);
-// 	put_base_core(value, base, len);
-// }
+   i = 0;
+   crc = 0xFFFFFFFF;
+   while (i < len) {
+      byte = (unsigned int)key[i];            // Get next byte.
+      crc = crc ^ byte;
+	  j = 7;
+      while (j >= 0) {    			// Do eight times.
+         mask = -(crc & 1);
+         crc = (crc >> 1) ^ (0xEDB88320 & mask);
+		 j--;
+      }
+      i++;
+   }
+   return ~crc;
+}
 
 void	ft_putendl(char const *s)
 {
