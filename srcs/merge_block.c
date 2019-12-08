@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_block.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 16:42:06 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:28:13 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ static int      merge_existing_block(t_block *block, size_t size) {
         ft_putendl("trying to merge block");
         // rest = block->next;
         block->next = block->next->next;
-        if (block->next)
+        if (block->next) {
             block->next->prev = block;
+            lock_block(block->next);
+        }
         // block->next = rest->next;
         // block->next->prev = block;
         block->size = rest_size + size;
@@ -89,9 +91,12 @@ void        create_intermediate_block(t_block *block, size_t wanted_size) {
         rest->busy = 0;
         rest->prev = block;
         rest->next = block->next;
-        if (rest->next)
+        if (rest->next) {
             rest->next->prev = rest;
+            lock_block(rest->next);
+        }
         block->next = rest;
+        lock_block(rest);
         
         // if (block->prev) {
         //     tmp_block = block->prev;

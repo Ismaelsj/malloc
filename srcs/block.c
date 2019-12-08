@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 16:52:34 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/08 02:51:09 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void        init_block(t_block *block, size_t size) {
     block->size = size;
     block->busy = 1;
+    lock_block(block);
 }
 
 t_block             *check_free_block(t_area *area, size_t size) {
@@ -32,6 +33,10 @@ t_block             *check_free_block(t_area *area, size_t size) {
     // printf("loop over blocks :\n");
     ft_putendl(MAGENTA "        loop over blocks");
     while (block) {
+        if (get_block_crc32(block) != block->crc32) {
+            ft_putendl("block corrupted." END);
+            return(NULL);
+        }
         // printf("    block n %d of size %lu, busy %d\n", i, block->size, block->busy);
         ft_putstr("            block n ");
         ft_iprint(i);
@@ -54,6 +59,7 @@ t_block             *check_free_block(t_area *area, size_t size) {
                 ft_putendl("            found block to small, try to merge/extend blocks :" END);
                 if (check_mergeable_block(area, block, size) == 1) {
                     ft_putendl(MAGENTA "            block merged/extended, returning it" END);
+                    lock_block(block);
                     return(block);
                 }
                 else {
@@ -117,6 +123,7 @@ t_block         *append_new_block(t_block *prev, size_t size) {
     new_block->prev = prev;
     new_block->next = NULL;
     new_block->busy = 1;
+    lock_block(new_block);
 
     return(new_block);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   area.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 16:41:27 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:54:39 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ t_block     *check_free_area(int type, size_t size) {
     // printf("loop over areas :\n");
     ft_putendl("    loop over areas :");
     while (area) {
+        if (get_area_crc32(area) != area->crc32) {
+            ft_putendl("        area corrupted ! exit.");
+            return(NULL);
+        }
         // printf("    area n %d: occupied/size : %lu/%lu, full %d, unset size : %lu\n", i, area->occupied, area->size, area->full, area->unset_size);
         ft_putstr("         area of size : ");
         ft_iprint(area->size);
@@ -67,7 +71,8 @@ t_block     *get_block(t_area *area, size_t size) {
     t_block *block;
 
     ft_putendl("    try to find a block" END);
-    block = check_free_block(area, size);
+    if ((block = check_free_block(area, size)) == NULL)
+        return(NULL);
     ft_putendl(BLUE "   got new block");
     // printf("got block of size : %lu and size of block : %lu, occupied size of area before new block : %lu\n", block->size, sizeof(block), area->occupied);
     area->occupied += sizeof(t_block) + block->size;
@@ -76,6 +81,7 @@ t_block     *get_block(t_area *area, size_t size) {
         ft_putendl("    LARGE area, full");
         area->full = 1;
     }
+    lock_area(area);
     ft_putendl("    return block" END);
     return(block);
 }
@@ -91,6 +97,7 @@ void        init_area(t_area *area, t_area *prev, size_t size, int type, size_t 
     area->next = NULL;
     
     area->first_block->size = original_size;
+    lock_block(area->first_block);
     area->unset_size -= sizeof(area->first_block) + area->first_block->size;
 }
 

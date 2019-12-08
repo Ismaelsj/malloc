@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 16:41:36 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:25:59 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void    free_block(t_area *area, t_block *block) {
     ft_iprint(block->size);
     ft_putendl("");
     block->busy = 0;
+    lock_block(block);
     // printf("FREE pointer freed, block size %lu\n", block->size);
     // printf("occupied size of area before clean : %lu/%lu\n", area->occupied, area->size);
     ft_putstr("occupied size of area before clean : ");

@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/07 15:26:45 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/08 01:39:04 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+void	ft_bchr(void *s, int c, size_t n)
+{
+	unsigned char	*d;
+
+	d = (unsigned char *)s;
+	while (n > 0)
+	{
+		*d++ = c;
+		n--;
+	}
+}
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -36,7 +48,7 @@ void	*ft_memcpy(void *s1, const void *s2, size_t n)
 	return (s1);
 }
 
-static size_t	ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
 	char	*tmp;
 
@@ -110,9 +122,9 @@ void		ft_umaxtoa_base(unsigned long long nb, int nb_base)
 // it would take about 6 + 46n instructions. */
 
 // unsigned int crc32b(unsigned char *message) {
-unsigned int 	crc32(int *key, int len) {
-   int i;
+unsigned int 	crc32(int *key, size_t len) {
    int j;
+   unsigned int i;
    unsigned int byte;
    unsigned int crc;
    unsigned int mask;
@@ -131,6 +143,34 @@ unsigned int 	crc32(int *key, int len) {
       i++;
    }
    return ~crc;
+}
+
+void	lock_block(t_block *block) {
+	size_t len;
+
+	len = sizeof(block) - sizeof(unsigned int);
+	block->crc32 = crc32((void*)block+sizeof(unsigned int), len);
+}
+
+unsigned int	get_block_crc32(t_block *block) {
+	size_t len;
+
+	len = sizeof(block) - sizeof(unsigned int);
+	return(crc32((void*)block+sizeof(unsigned int), len));
+}
+
+void	lock_area(t_area *area) {
+	size_t len;
+
+	len = sizeof(area) - sizeof(unsigned int);
+	area->crc32 = crc32((void*)area+sizeof(unsigned int), len);
+}
+
+unsigned int	get_area_crc32(t_area *area) {
+	size_t len;
+
+	len = sizeof(area) - sizeof(unsigned int);
+	return(crc32((void*)area+sizeof(unsigned int), len));
 }
 
 void	ft_putendl(char const *s)

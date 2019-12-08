@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 16:52:48 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/08 01:39:18 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <sys/mman.h>
 # include <unistd.h>
 # include <stdio.h>
+
+# include <stdlib.h>
 
 # define NB_BLOCKS		100
 # define TINY_BLOCK		512
@@ -120,14 +122,19 @@ t_area      *request_memory(t_area *prev, size_t size);
 t_heap      new_heap(int type, size_t large_size);
 
 // utils
-int  	choose_pool(size_t size);
-void	ft_bzero(void *s, size_t n);
-void	put_base(unsigned long long value, int base);
-void	*ft_memcpy(void *s1, const void *s2, size_t n);
-void	ft_putendl(char const *s);
-void    ft_iprint(int n);
-void	ft_putstr(char *str);
-void		ft_umaxtoa_base(unsigned long long nb, int nb_base);
-unsigned int 	crc32(int *key, int len);
+int  	        choose_pool(size_t size);
+size_t	        ft_strlen(char *str);
+void	        ft_bzero(void *s, size_t n);
+void	        ft_bchr(void *s, int c, size_t n);
+void	        *ft_memcpy(void *s1, const void *s2, size_t n);
+void	        ft_putendl(char const *s);
+void            ft_iprint(int n);
+void	        ft_putstr(char *str);
+void		    ft_umaxtoa_base(unsigned long long nb, int nb_base);
+unsigned int 	crc32(int *key, size_t len);
+unsigned int	get_area_crc32(t_area *area);
+void	        lock_area(t_area *area);
+unsigned int	get_block_crc32(t_block *block);
+void	        lock_block(t_block *block);
 
 #endif

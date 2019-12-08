@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 16:41:43 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/08 02:46:38 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
     else {
         // printf("realloc: asking for new block\n");
         ft_putendl(YELLOW "new block needed, calling malloc:" END);
-        new_ptr = malloc(size);
+        if ((new_ptr = malloc(size)) == NULL)
+            return(NULL);
         ft_putendl(YELLOW "got new block of size ");
         ft_iprint(size);
         ft_putendl("");
@@ -88,7 +89,7 @@ static void         *down_sizing_block(t_area *area, t_block *block, size_t size
     // printf("block down sized from %lu to %lu\n", original_size, block->size);
     if (original_size - size > sizeof(t_block)) {
         rest = BLOCK_NEXT(block);
-        rest->size = original_size - size - sizeof(rest);
+        rest->size = original_size - size - sizeof(t_block);
         rest->busy = 0;
         rest->prev = block;
         rest->next = block->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_global.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 13:49:15 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/05 11:36:54 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:42:09 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ t_heap      new_heap(int type, size_t original_size) {
     // printf("new %d area of size %lu -> %lu at adress : %p\n", TINY, size, get_page_size(type, size), &new_area);
     new_heap.type = type;
     new_heap.first_area = new_area;
+    lock_area(new_area);
     return(new_heap);
 }
