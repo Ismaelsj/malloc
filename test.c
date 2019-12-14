@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/08 02:46:05 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/14 14:37:30 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ char    *do_realloc(char *str, size_t size) {
     if (str == NULL)
         return(NULL);
     printf("from size : %lu, to size : %lu\n", ft_strlen(str), size);
-    printf("size : %lu\n", size-1);
+    printf("size : %lu\n", size);
     if ((str = (char *)realloc(str, sizeof(char) * size)) == NULL) {
         printf("NULL returned\n\n");
         return(0);
     }
-    ft_bchr(str, 'r', size);
+    ft_bchr(str, 'r', size-1);
     printf(GREEN "realloc has succeeded\n\n" END);
     return(str);
 }
@@ -83,14 +83,15 @@ int main(void) {
     // }
     // return(0);
 
-    t_test_ptr  ptrs_test[1000];
+    t_test_ptr  ptrs_test[50];
     fptr        ftab[3] = {&do_malloc, &do_realloc, &do_free};
     int         nb_action = 100;
     int         lower_ptr = 0, upper_ptr = 999;
     int         lower_act = 0, upper_act = 2;
+    int         nb_iter = 49;
     
     // init ptr to NULL
-    for (int i=0; i < 999; i++) {
+    for (int i=0; i < nb_iter; i++) {
         ptrs_test[i].str = NULL;
     }
 
@@ -104,29 +105,29 @@ int main(void) {
     // }
 
     // malloc
-    for (int k=0; k < 999; k++) {
+    for (int k=0; k < nb_iter; k++) {
         printf("    ==== malloc operation n %d ====\n", k);
         size_t size = (rand() % (512 - 4 + 1)) + 4; 
         ptrs_test[k].str = do_malloc(ptrs_test[k].str, size);
     }
 
     // random free
-    for (int k=0; k < 999; k++) {
+    for (int k=0; k < nb_iter; k++) {
         printf("    ==== random free operation n %d ====\n", k);
-        size_t ptr = (rand() % (990 - 0 + 1)) + 0;
+        size_t ptr = (rand() % (49 - 0 + 1)) + 0;
         if (ptrs_test[ptr].str != NULL)
             do_free(ptrs_test[ptr].str, 0);
     }
 
     // realloc
-    for (int k=0; k < 999; k++) {
+    for (int k=0; k < nb_iter; k++) {
         printf("    ==== realloc operation n %d ====\n", k);
         size_t size = (rand() % (512 - 4 + 1)) + 4; 
         ptrs_test[k].str = do_realloc(ptrs_test[k].str, size);
     }
 
     // free
-    for (int k=0; k < 999; k++) {
+    for (int k=0; k < nb_iter; k++) {
         printf("    ==== free operation n %d ====\n", k);
         if (ptrs_test[k].str != NULL)
             do_free(ptrs_test[k].str, 0);

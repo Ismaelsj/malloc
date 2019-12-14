@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_block.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 19:28:13 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/14 16:09:58 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int      merge_existing_block(t_block *block, size_t size) {
 
     if (block->size + block->next->size + sizeof(block->next) >= size) {
         // rest_size = block->next->size + block->size  - size;
-        rest_size = block->next->size + block->size + sizeof(block->next) - size;
+        // rest_size = block->next->size + block->size + sizeof(block->next) - size;
+        rest_size = block->next->size + block->size + sizeof(t_block) - size;
         // printf("try to merge block of size %lu and %lu, for size %lu, with a rest of %lu\n", block->size, block->next->size, size, rest_size);
         ft_putendl("trying to merge block");
         // rest = block->next;
@@ -146,7 +147,7 @@ void        create_intermediate_block(t_block *block, size_t wanted_size) {
     else {
         ft_putendl("no rest");
         
-        block->size = wanted_size;
+        // block->size = wanted_size;
     }
     // ft_putstr("block size ");
     // ft_iprint(tmp_block->size);

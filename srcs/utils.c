@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/08 01:39:04 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/14 15:48:28 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void 			ft_iprint(int n) { 
+void 			ft_iprint(int n) {
     if( n > 9 )
       { int a = n / 10;
 

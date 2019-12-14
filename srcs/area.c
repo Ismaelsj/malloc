@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   area.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 19:54:39 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/14 15:17:28 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_block     *check_free_area(int type, size_t size) {
         ft_putstr(", occupied size : ");
         ft_iprint(area->occupied);
         ft_putendl("");
+        // sleep(1);
         if (area->occupied + (sizeof(t_block) + size) <= area->size && !area->full) {
             ft_putstr("         foud free area of size ");
             ft_iprint(area->size);
@@ -59,7 +60,7 @@ t_block     *check_free_area(int type, size_t size) {
     ft_putstr(BLUE "   init new area of size ");
     ft_iprint(size);
     ft_putendl("");
-    init_area(area->next, area, size, type, size);
+    init_area(area->next, area, size, type);
     ft_putendl("    area ready, try to find a block :");
     area = area->next;
     // printf(YELLOW "new area n %d of type %d and size %lu, unset size : %lu" END "\n", i, type, area->next->size, area->unset_size);
@@ -71,8 +72,18 @@ t_block     *get_block(t_area *area, size_t size) {
     t_block *block;
 
     ft_putendl("    try to find a block" END);
-    if ((block = check_free_block(area, size)) == NULL)
+    if ((block = check_free_block(area, size)) == NULL) {
+        if (area->unset_size < sizeof(t_block) + size) {
+            ft_putendl("new area needed");
+            if ((area->next = request_memory(AREA_NEXT(area), get_page_size(area->type, size))) == NULL)
+                return(NULL);
+            init_area(area->next, area, size, area->type);
+            area = area->next;
+            return(get_block(area, size));
+        }
+
         return(NULL);
+    }
     ft_putendl(BLUE "   got new block");
     // printf("got block of size : %lu and size of block : %lu, occupied size of area before new block : %lu\n", block->size, sizeof(block), area->occupied);
     area->occupied += sizeof(t_block) + block->size;
@@ -86,7 +97,7 @@ t_block     *get_block(t_area *area, size_t size) {
     return(block);
 }
 
-void        init_area(t_area *area, t_area *prev, size_t size, int type, size_t original_size) {
+void        init_area(t_area *area, t_area *prev, size_t size, int type) {
     area->first_block = (t_block *)AREA_MEM(area);
     area->size = get_page_size(type, size);
     area->type = type;
@@ -96,7 +107,8 @@ void        init_area(t_area *area, t_area *prev, size_t size, int type, size_t 
     area->prev = prev;
     area->next = NULL;
     
-    area->first_block->size = original_size;
+    init_new_block(area->first_block, size);
+    // area->first_block->size = size;
     lock_block(area->first_block);
     area->unset_size -= sizeof(area->first_block) + area->first_block->size;
 }

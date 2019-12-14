@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/08 02:51:09 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/14 15:41:41 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ t_block             *check_free_block(t_area *area, size_t size) {
     ft_putendl(MAGENTA "        loop over blocks");
     while (block) {
         if (get_block_crc32(block) != block->crc32) {
-            ft_putendl("block corrupted." END);
+            ft_putstr("block n ");
+            ft_iprint(i);
+            ft_putendl("corrupted." END);
+            // ft_putendl("block corrupted." END);
             return(NULL);
         }
         // printf("    block n %d of size %lu, busy %d\n", i, block->size, block->busy);
@@ -102,7 +105,12 @@ t_block             *check_free_block(t_area *area, size_t size) {
         // sleep(1);
         return(most_fited_block);
     }
+
     ft_putendl("        no block found, append new one");
+    if (area->unset_size < sizeof(t_block) + block->size) {
+        ft_putendl("No enough space to append a new block");
+        return(NULL);
+    }
     block->next = append_new_block(block, size);
     ft_putendl("new block created");
     area->unset_size -= sizeof(t_block) + block->size;

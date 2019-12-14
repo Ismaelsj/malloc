@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/08 01:39:18 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/14 13:07:46 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void    show_alloc_mem();
 
 // areas
 t_block     *check_free_area(int type, size_t size);
-void        init_area(t_area *area, t_area *prev, size_t size, int type, size_t original_size);
+// void        init_area(t_area *area, t_area *prev, size_t size, int type, size_t original_size);
+void        init_area(t_area *area, t_area *prev, size_t size, int type);
 t_block     *append_new_area(t_area *area, size_t size);
 t_block     *get_block(t_area *area, size_t size);
 
