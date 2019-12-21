@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   area.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/14 15:17:28 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/21 14:35:08 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ t_block     *get_block(t_area *area, size_t size) {
             area = area->next;
             return(get_block(area, size));
         }
-
         return(NULL);
     }
     ft_putendl(BLUE "   got new block");
@@ -110,7 +109,7 @@ void        init_area(t_area *area, t_area *prev, size_t size, int type) {
     init_new_block(area->first_block, size);
     // area->first_block->size = size;
     lock_block(area->first_block);
-    area->unset_size -= sizeof(area->first_block) + area->first_block->size;
+    area->unset_size -= sizeof(t_block) + area->first_block->size;
 }
 
 t_area      *request_memory(t_area *prev, size_t size) {

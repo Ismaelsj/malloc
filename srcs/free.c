@@ -6,7 +6,7 @@
 /*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 19:25:59 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/21 15:31:51 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void            free(void *ptr) {
 }
 
 void    free_block(t_area *area, t_block *block) {
-    if (block == NULL) {
+    if (block == NULL || block->busy == 0) {
         ft_putendl("block NULL");
         return ;
     }

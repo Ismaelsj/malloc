@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/14 15:41:41 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/21 14:32:00 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,14 @@ t_block             *check_free_block(t_area *area, size_t size) {
     }
 
     ft_putendl("        no block found, append new one");
-    if (area->unset_size < sizeof(t_block) + block->size) {
+    if (area->unset_size < sizeof(t_block) + size) {
         ft_putendl("No enough space to append a new block");
         return(NULL);
     }
     block->next = append_new_block(block, size);
+    lock_block(block);
     ft_putendl("new block created");
-    area->unset_size -= sizeof(t_block) + block->size;
+    area->unset_size -= sizeof(t_block) + block->next->size;
     // printf(BLUE "append new block n %d, of size %lu, area unset size : %lu" END "\n", i, block->next->size, area->unset_size);
     ft_putendl("        block created, returning it" END);
     // sleep(1);

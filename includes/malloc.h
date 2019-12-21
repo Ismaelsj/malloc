@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/14 13:07:46 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/21 15:46:02 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@
 
 # include <stdlib.h>
 
-# define NB_BLOCKS		100
-# define TINY_BLOCK		512
-# define SMALL_BLOCK	1024
+// # define NB_BLOCKS		100
+# define NB_BLOCKS		1024
+// # define TINY_BLOCK		512
+# define TINY_BLOCK		4096
+// # define SMALL_BLOCK	1024
+# define SMALL_BLOCK	16384
 
 # define BLOCK_MEM(block)       (void *)(block + 1)
 # define AREA_MEM(area)         (void *)(area + 1)

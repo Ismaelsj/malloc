@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/14 16:12:47 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/21 16:13:05 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
         // printf("prev block of size %lu free an mergeable with the current one of size %lu\n", block->prev->size, block->size);
         block->busy = 0;
         block = block->prev;
+        block->busy = 1;
     }
     ft_putstr(END);
     if (check_mergeable_block(area, block, size)) {
@@ -77,7 +78,8 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
         // printf("new block of size %lu\n", size);
         ft_memcpy(new_ptr, data, original_size);
         ft_putendl("memory copied, freeing old one" END);
-        free(BLOCK_MEM(block));
+        // free(BLOCK_MEM(block));
+        free_block(area, block);
         ft_putendl(YELLOW"return mem" END);
         return(new_ptr);
     }
@@ -136,9 +138,13 @@ void                *realloc(void *ptr, size_t size) {
         return(NULL);
     ft_putendl(YELLOW "trying to find block" END);
     block = retrieve_block(area, ptr);
-    ft_putendl(YELLOW "block found");
-    if (choose_pool(aligned_size) != area->type)
+    if (block->busy == 0)
         return(malloc(size));
+    ft_putendl(YELLOW "block found");
+    if (choose_pool(aligned_size) != area->type) {
+        free_block(area, block);
+        return(malloc(size));
+    }
     // printf("realloc: area and block found\n");
     ft_putstr("occupied size of area before realloc : ");
     ft_iprint(area->occupied);
