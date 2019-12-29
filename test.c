@@ -6,7 +6,7 @@
 /*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/21 16:23:02 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/28 15:47:12 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char    *do_malloc(char *null, size_t size) {
     printf("size : %lu\n", size);
     if ((str = (char *)malloc(sizeof(char) * size)) == NULL) {
         printf("NULL returned\n\n");
-        return(0);
+        return(NULL);
     }
     ft_bchr(str, 'm', size-1);
     printf(GREEN "malloc has succeeded\n\n" END, str);
@@ -45,7 +45,7 @@ char    *do_realloc(char *str, size_t size) {
     return(str);
 }
 
-char    *do_free(char *str, size_t n) {
+char    *do_free(char *str) {
     // printf(YELLOW "========= Free =========\n");
     free(str);
     printf(GREEN "pointer str freed\n\n" END);
@@ -112,14 +112,14 @@ int main(void) {
     }
 
     // random free
-    for (int k=0; k < (nb_iter - 50); k++) {
-        printf("    ==== random free operation n %d ====\n", k);
-        size_t ptr = (rand() % (99 - 0 + 1)) + 0;
-        if (ptrs_test[ptr].str != NULL)
-            do_free(ptrs_test[ptr].str, 0);
-    }
+    // for (int k=0; k < (nb_iter - 50); k++) {
+    //     printf("    ==== random free operation n %d ====\n", k);
+    //     size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
+    //     if (ptrs_test[ptr].str != NULL)
+    //         ptrs_test[ptr].str = do_free(ptrs_test[ptr].str);
+    // }
 
-    // realloc
+    // random realloc
     for (int k=0; k < (nb_iter - 50); k++) {
         printf("    ==== realloc operation n %d ====\n", k);
         size_t size = (rand() % (5000 - 4 + 1)) + 4;
@@ -131,7 +131,7 @@ int main(void) {
     for (int k=0; k <= nb_iter; k++) {
         printf("    ==== free operation n %d ====\n", k);
         if (ptrs_test[k].str != NULL)
-            do_free(ptrs_test[k].str, 0);
+            ptrs_test[k].str = do_free(ptrs_test[k].str);
     }
     return(0);
 

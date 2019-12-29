@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_block.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/14 16:09:58 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/28 15:54:48 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int          check_mergeable_block(t_area *area, t_block *block, size_t size) {
     if (!block->next) {
         // printf("try extend block of size %lu, area unset size : %lu\n", block->size, area->unset_size);
         ft_putendl("block as last block, extendable :");
-        if (area->unset_size >= size) {
+        if (area->unset_size >= size - block->size) {
             area->unset_size -= size - block->size;
             init_block(block, size);
             ft_putendl("block extended" END);
