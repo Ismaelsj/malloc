@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/30 15:34:51 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/30 16:58:12 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void                *realloc(void *ptr, size_t size) {
         if (!ptr)
             return(NULL);
         free(ptr);
-        return(malloc(size));
+        return(malloc(16));
     }
     aligned_size = align_size(size, 16);
     ft_putstr("asked size : ");
