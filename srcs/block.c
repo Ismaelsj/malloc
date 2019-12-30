@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/21 14:32:00 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/30 16:30:16 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_block             *check_free_block(t_area *area, size_t size) {
             ft_putstr("block n ");
             ft_iprint(i);
             ft_putendl("corrupted." END);
-            // ft_putendl("block corrupted." END);
             return(NULL);
         }
         // printf("    block n %d of size %lu, busy %d\n", i, block->size, block->busy);
@@ -47,12 +46,10 @@ t_block             *check_free_block(t_area *area, size_t size) {
         ft_iprint(block->size);
         ft_putstr(" at addr : ");
         ft_umaxtoa_base((unsigned long long)block, 16);
+        ft_putendl("");
         ft_putstr("         CRC32 : ");
         ft_umaxtoa_base((unsigned long long)crc32((void*)block+sizeof(unsigned int), 12), 10);
-        // ft_putstr("         crc32 : ");
-        // ft_iprint(block->crc32);
-        // ft_putendl("");
-        // block->crc32 += 1;
+        ft_putendl("");
         if (block->busy == 0) {
             ft_putstr("            block not busy of size : ");
             ft_iprint(block->size);
@@ -90,10 +87,6 @@ t_block             *check_free_block(t_area *area, size_t size) {
         tmp = (unsigned long long)block;
         tmp_size = block->size;
         block = block->next;
-        // ft_putstr("             diff block, block->next addr : ");
-        // ft_umaxtoa_base((unsigned long long)block - tmp, 10);
-        // ft_putstr("                                     -> ");
-        // ft_umaxtoa_base(((unsigned long long)block - tmp) - tmp_size, 10);
         if (((unsigned long long)block - tmp) == 0)
             sleep(1);
     }

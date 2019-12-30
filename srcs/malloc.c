@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/07 19:55:47 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/30 15:18:11 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void        *malloc(size_t size) {
 	ft_putendl("\nsize aligned, pool chosen, trying to get a block :" END);
 	if ((block = check_free_area(type, size)) == NULL)
 		return(NULL);
-	ft_putendl("got block ready to return");
+	ft_putendl(GREEN "got block ready to return" END);
 	return(BLOCK_MEM(block));
 }

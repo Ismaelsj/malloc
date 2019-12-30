@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/21 15:46:02 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/30 16:10:05 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 
 # include <stdlib.h>
 
-// # define NB_BLOCKS		100
+// # define NB_BLOCKS		16
 # define NB_BLOCKS		1024
 // # define TINY_BLOCK		512
 # define TINY_BLOCK		4096
-// # define SMALL_BLOCK	1024
+// # define SMALL_BLOCK	4096
 # define SMALL_BLOCK	16384
 
 # define BLOCK_MEM(block)       (void *)(block + 1)
@@ -109,6 +109,9 @@ void        create_intermediate_block(t_block *block, size_t wanted_size);
 void    check_free_alloc(t_block *block, size_t size);
 void    free_area(t_area *area);
 void    free_block(t_area *area, t_block *block);
+
+// show allocation
+void    show_alloc_mem(void);
 
 // size
 size_t  get_header_size(void);

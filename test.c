@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/28 15:47:12 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/30 16:27:18 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,46 @@ char    *do_malloc(char *null, size_t size) {
 
     (void*)null;
     // printf(GREEN "========= Mallocation =========\n");
-    printf("size : %lu\n", size);
+    ft_putstr("size : ");
+    ft_iprint(size);
+    ft_putendl("");
     if ((str = (char *)malloc(sizeof(char) * size)) == NULL) {
-        printf("NULL returned\n\n");
+        ft_putendl("NULL returned\n\n");
         return(NULL);
     }
     ft_bchr(str, 'm', size-1);
-    printf(GREEN "malloc has succeeded\n\n" END, str);
+    ft_putendl(GREEN "malloc has succeeded\n\n" END);
     return(str);
 }
 
 char    *do_realloc(char *str, size_t size) {
     // printf(YELLOW "========= Reallocation =========\n");
-    if (str == NULL)
-        return(NULL);
-    printf("from size : %lu, to size : %lu\n", ft_strlen(str), size);
-    printf("size : %lu\n", size);
+    // if (str == NULL)
+    //     return(NULL);
+    ft_putstr("from size : ");
+    ft_iprint(ft_strlen(str));
+    ft_putstr(", to size : ");
+    ft_iprint(size);
+    ft_putendl("");
+    ft_putstr("size : ");
+    ft_iprint(size);
+    ft_putendl("");
+    // ft_putstr(GREEN "ptr value : ");
+    // ft_putstr(str);
+    // ft_putendl("" END);
     if ((str = (char *)realloc(str, sizeof(char) * size)) == NULL) {
-        printf("NULL returned\n\n");
+        ft_putendl("NULL returned\n\n");
         return(0);
     }
     ft_bchr(str, 'r', size-1);
-    printf(GREEN "realloc has succeeded\n\n" END);
+    ft_putendl(GREEN "realloc has succeeded\n\n" END);
     return(str);
 }
 
 char    *do_free(char *str) {
     // printf(YELLOW "========= Free =========\n");
     free(str);
-    printf(GREEN "pointer str freed\n\n" END);
+    ft_putendl(GREEN "pointer str freed\n\n" END);
     return(NULL);
 }
 
@@ -61,16 +72,12 @@ typedef struct		s_test_ptr
 
 int main(void) {
 
+    printf("%lu\n", align_size(0, 16));
+
     // char *tmp = "Bonjour";
     // char *tmp2 = "yahyahyah aifu ruhseru hweur hewger reg reugweur giwoeubrguberwub goeurybgouyrb oeuyrbg";
     // char *str;
-    // char *str_bis;
     // char *str2;
-    // char *str2_bis;
-    // char *str3;
-    // char *str4;
-    // int  *tab;
-    // int  *tab2;
 
     // int i;
     // char *addr;
@@ -83,12 +90,12 @@ int main(void) {
     // }
     // return(0);
 
-    t_test_ptr  ptrs_test[100];
+    t_test_ptr  ptrs_test[500];
     fptr        ftab[3] = {&do_malloc, &do_realloc, &do_free};
     int         nb_action = 100;
     int         lower_ptr = 0, upper_ptr = 999;
     int         lower_act = 0, upper_act = 2;
-    int         nb_iter = 99;
+    int         nb_iter = 499;
     
     // init ptr to NULL
     for (int i=0; i < nb_iter; i++) {
@@ -105,37 +112,73 @@ int main(void) {
     // }
 
     // malloc
-    for (int k=0; k < nb_iter; k++) {
-        printf("    ==== malloc operation n %d ====\n", k);
-        size_t size = (rand() % (5000 - 4 + 1)) + 4; 
+    for (int k=0; k <= nb_iter; k++) {
+        ft_putstr("    ==== malloc operation n ");
+        ft_iprint(k);
+        ft_putendl(" ====");
+        size_t size = (rand() % (5000 - 4 + 1)) + 4;
         ptrs_test[k].str = do_malloc(ptrs_test[k].str, size);
+        if (ptrs_test[k].str == NULL)
+            ft_putendl("********* MALLOC RETURNED NULL PTR *********");
     }
+
 
     // random free
     // for (int k=0; k < (nb_iter - 50); k++) {
-    //     printf("    ==== random free operation n %d ====\n", k);
+    //     // printf("    ==== random free operation n %d ====\n", k);
+    //     ft_putstr("    ==== random free operation n ");
+    //     ft_iprint(k);
+    //     ft_putendl(" ====");
     //     size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
     //     if (ptrs_test[ptr].str != NULL)
-    //         ptrs_test[ptr].str = do_free(ptrs_test[ptr].str);
+    //         do_free(ptrs_test[ptr].str);
     // }
 
     // random realloc
-    for (int k=0; k < (nb_iter - 50); k++) {
-        printf("    ==== realloc operation n %d ====\n", k);
-        size_t size = (rand() % (5000 - 4 + 1)) + 4;
-        size_t ptr = (rand() % (99 - 0 + 1)) + 0;
-        ptrs_test[ptr].str = do_realloc(ptrs_test[k].str, size);
-    }
+    // for (int k=0; k < (nb_iter - 50); k++) {
+    //     // printf("    ==== realloc operation n %d ====\n", k);
+    //     ft_putstr("    ==== random realloc operation n ");
+    //     ft_iprint(k);
+    //     ft_putendl(" ====");
+    //     size_t size = (rand() % (5000 - 4 + 1)) + 4;
+    //     size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
+    //     ptrs_test[ptr].str = do_realloc(ptrs_test[ptr].str, size);
+    //     if (ptrs_test[ptr].str == NULL)
+    //         ft_putendl("********* REALLOC RETURNED NULL PTR *********");
+    // }
+
+
+    show_alloc_mem();
+
 
     // free
     for (int k=0; k <= nb_iter; k++) {
-        printf("    ==== free operation n %d ====\n", k);
+        // printf("    ==== free operation n %d ====\n", k);
+        ft_putstr("    ==== free operation n ");
+        ft_iprint(k);
+        ft_putendl(" ====");
         if (ptrs_test[k].str != NULL)
-            ptrs_test[k].str = do_free(ptrs_test[k].str);
+            do_free(ptrs_test[k].str);
     }
-    return(0);
 
-    // printf("sizeof t_block : %lu\n", sizeof(t_block));
+    // t_block *block;
+    // t_area  *area;
+    // for (int k=0; k < nb_iter; k++) {
+    //     area = retrieve_area(ptrs_test[k].str);
+    //     block = retrieve_block(area, ptrs_test[k].str);
+    //     if (block == NULL)
+    //         ft_putendl("block NULL");
+    //     else {
+    //         ft_putstr("block found :\nbusy : ");
+    //         ft_iprint(block->busy);
+    //         ft_putendl("");
+    //         ft_putstr("size : ");
+    //         ft_iprint(block->size);
+    //         ft_putendl("");
+    //     }
+    // }
+
+    return(0);
 
     // printf("\n========= Allocation 1 =========\n");
     // printf(" -- sizeof malloc : %lu\n", sizeof(char) * 8);
@@ -154,135 +197,9 @@ int main(void) {
     // strncpy(str2, tmp2, 10);
     // printf("str2 : %s\n", str2);
 
-    // // printf(RED "\nFree pointer str2 :" END "\n");
-    // // free(str2);
-
-    // printf("\n========= Allocation 1 bis =========\n");
-    // printf(" -- sizeof malloc : %lu\n", sizeof(char) * 8);
-    // str_bis = (char *)malloc(sizeof(char) * 8);
-    // // printf("size of alocated string : %lu\n");
-    // printf("size of alocated string : %lu\n", sizeof(str_bis));
-    // strncpy(str_bis, tmp, 8);
-    // printf("str : %s\n", str_bis);
-
-    // printf("str2 : %s\n", str2);
-    // strncpy(str2, tmp2, 15);
-    // printf("str2 : %s\n", str2);
-
-    // printf("\n========= Allocation 3 =========\n");
-    // printf(" -- sizeof malloc : %lu\n", sizeof(char) * 60);
-
-    // if ((str3 = (char *)malloc(sizeof(char) * 60)) == NULL) {
-    //     printf("allocation failed !\n");
-    //     return(0);
-    // }
-    // // printf("size of alocated string : %lu\n");
-    // else {
-    //     printf("size of alocated string : %lu\n", sizeof(str3));
-    //     strncpy(str3, "Chaque zone doit pouvoir contenir au moins 100 allocations.", 59);
-    //     printf("str2 : %s\n", str3);
-    // }
-
-    // printf("\n========= Allocation 4 =========\n");
-    // printf(" -- sizeof malloc : %lu\n", sizeof(char) * 60);
-    // str4 = (char *)malloc(sizeof(char) * 60);
-    // // printf("size of alocated string : %lu\n");
-    // printf("size of alocated string : %lu\n", sizeof(str4));
-    // strncpy(str4, "Chaque zone doit pouvoir contenir au moins 100 allocations.", 59);
-    // printf("str2 : %s\n", str4);
-
-    // return(0);
-
-    // // printf(RED "\nFree pointer str2 :" END "\n");
-    // // free(str2);
-
-    // printf("\n========= Reallocation 1 =========\n");
-    // str = (char *)realloc(str, sizeof(char) * 17);
-    // // printf("size of alocated string : %lu\n");
-    // printf("size of alocated string : %lu\n", sizeof(str2));
-    // printf("str : %s\n", str);
-    // strncpy(str, "Chaque zone doit pouvoir contenir au moins 100 allocations.", 16);
-    // printf("str : %s\n", str);
-
-
-    // printf(RED "\nFree pointer str2 :" END "\n");
-    // free(str);
-    // printf(RED "\nFree pointer str2 :" END "\n");
-    // free(str_bis);
-    // return(0);
-
-    // printf("\n========= Reallocation 2 =========\n");
-    // str2 = (char *)realloc(str2, sizeof(char) * 15);
-    // // printf("size of alocated string : %lu\n");
-    // printf("size of alocated string : %lu\n", sizeof(str2));
-    // printf("str : %s\n", str2);
-    // strncpy(str2, "lalalalala lalal", 14);
-    // printf("str : %s\n", str2);
-
-    // // printf(RED "\nFree pointer str :" END "\n");
-    // // free(str);
-    // // printf(RED "\nFree pointer str2 :" END "\n");
-    // // free(str2);
-
-    // printf("\n========= Allocation 2 bis =========\n");
-    // printf(" -- sizeof malloc : %lu\n", sizeof(char) * 18);
-    // str2_bis = (char *)malloc(sizeof(char) * 18);
-    // // printf("size of alocated string : %lu\n");
-    // printf("size of alocated string : %lu\n", sizeof(str2_bis));
-    // strncpy(str2_bis, tmp2, 14);
-    // printf("str2_bis : %s\n", str2_bis);
-
-    // printf("========= Allocation 4 =========\n");
-    // printf(" -- sizeof malloc : %lu\n", sizeof(int *) * 5000);
-    // tab2 = (int *)malloc(sizeof(int) * 5000);
-    // printf("size of alocated string : %lu\n", sizeof(tab2));
-
-
-    // printf(RED "\nFree pointer str_bis :" END "\n");
-    // free(str_bis);
-    // printf(RED "\nFree pointer str2_bis :" END "\n");
-    // free(str2_bis);
-
-
-    // // printf("\n========= Allocation 3 =========\n");
-    // // printf(" -- sizeof malloc : %lu\n", sizeof(char) * 60);
-    // // str3 = (char *)malloc(sizeof(char) * 60);
-    // // // printf("size of alocated string : %lu\n");
-    // // printf("size of alocated string : %lu\n", sizeof(str3));
-    // // strncpy(str3, "Chaque zone doit pouvoir contenir au moins 100 allocations.", 59);
-    // // printf("str2 : %s\n", str3);
-
-    // // printf("\n========= Allocation 4 =========\n");
-    // // printf(" -- sizeof malloc : %lu\n", sizeof(int) * 1000);
-    // // tab = (int *)malloc(sizeof(int) * 1000);
-    // // // printf("size of alocated string : %lu\n");
-    // // printf("size of alocated string : %lu\n", sizeof(tab));
-    // // int i = 0;
-    // // while (i < 1000) {
-    // //     tab[i] = i;
-    // //     i++;
-    // // }
-    // // while (i > 900) {
-    // //     printf("tab[i] : %d\n", tab[i]);
-    // //     i--;
-    // // }
-    // // // printf("========= Allocation 4 =========\n");
-    // // // printf(" -- sizeof malloc : %lu\n", sizeof(int *) * 5000);
-    // // // tab2 = (int *)malloc(sizeof(int) * 5000);
-    // // // // printf("size of alocated string : %lu\n");
-    // // // printf("size of alocated string : %lu\n", sizeof(tab2));
-
     // printf(RED "Free pointer str :" END "\n");
     // free(str);
     // printf(RED "Free pointer str2 :" END "\n");
     // free(str2);
-    // // printf(RED "Free pointer tab :" END "\n");
-    // // free(tab);
-    // // printf(RED "Free pointer tab2 : %lu" END "\n", sizeof(tab2));
-    // // free(tab2);
-    // // printf(RED "Free pointer str3 : %lu" END "\n", sizeof(str3));
-    // // free(str3);
-    // // printf(GREEN "all done !" END "\n");
-    // // // while (1);
     // return(0);
 }

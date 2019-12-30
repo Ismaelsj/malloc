@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_block.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/28 15:54:48 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/30 15:08:49 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,6 @@ static int      merge_existing_block(t_block *block, size_t size) {
         ft_putendl("");
         // printf("new merged block of size %lu\n", block->size);
         create_intermediate_block(block, size);
-        // if (rest_size > sizeof(block)) {
-        //     ft_putendl("got rest, creating intermediate block");
-        //     rest = BLOCK_NEXT(block);
-        //     rest->size = rest_size;
-        //     rest->busy = 0;
-        //     rest->prev = block;
-        //     rest->next = block->next;
-        //     if (rest->next)
-        //         rest->next->prev = rest;
-        //     block->next = rest;
-        //     // printf("rest : block of size %lu\n", rest->size);
-        //     ft_putendl("intermediate block created end linked" END);
-        // }
-        // else
-        //     ft_putendl("no rest" END);
         return(1);
     }
     ft_putendl("blocks not mergeable");
@@ -98,60 +83,10 @@ void        create_intermediate_block(t_block *block, size_t wanted_size) {
         }
         block->next = rest;
         lock_block(rest);
-        
-        // if (block->prev) {
-        //     tmp_block = block->prev;
-        //     ft_putstr("block prev size ");
-        //     ft_iprint(tmp_block->size);
-        //     ft_putendl("");
-        //     ft_putstr("     block prev addr : ");
-        //     ft_umaxtoa_base((unsigned long long)tmp_block, 16);
-        // }
-        // ft_putstr("block size ");
-        // ft_iprint(block->size);
-        // ft_putendl("");
-        // ft_putstr("     block addr : ");
-        // ft_umaxtoa_base((unsigned long long)block, 16);
-        // if (block->next) {
-        //     tmp_block = block->next;
-        //     ft_putstr("block next size ");
-        //     ft_iprint(tmp_block->size);
-        //     ft_putendl("");
-        //     ft_putstr("     block next addr : ");
-        //     ft_umaxtoa_base((unsigned long long)tmp_block, 16);
-        // }
-        // ft_putendl("");
-
-        // ft_putendl("intermediate block created end linked");
-        // tmp_rest = rest->prev;
-        // ft_putstr("rest prev size ");
-        // ft_iprint(tmp_rest->size);
-        // ft_putendl("");
-        // ft_putstr("     rest prev addr : ");
-        // ft_umaxtoa_base((unsigned long long)tmp_rest, 16);
-        // ft_putstr("rest size ");
-        // ft_iprint(rest->size);
-        // ft_putendl("");
-        // ft_putstr("     rest addr : ");
-        // ft_umaxtoa_base((unsigned long long)rest, 16);
-        // if (rest->next) {
-        //     tmp_rest = rest->next;
-        //     ft_putstr("rest next size ");
-        //     ft_iprint(tmp_rest->size);
-        //     ft_putendl("");
-        //     ft_putstr("     rest next addr : ");
-        //     ft_umaxtoa_base((unsigned long long)tmp_rest, 16);
-        // }
-        // ft_putendl("");
     }
     else {
-        ft_putendl("no rest");
-        
-        // block->size = wanted_size;
+        ft_putendl("no rest");   
     }
-    // ft_putstr("block size ");
-    // ft_iprint(tmp_block->size);
-    // ft_putendl("" END);
 }
 
 int          check_mergeable_block(t_area *area, t_block *block, size_t size) {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/21 15:31:51 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/30 15:09:32 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void            free(void *ptr) {
         ft_putendl("ptr NULL" END);
         return ;
     }
-    // printf("FREE pointer not null\n");
     ft_putendl("get area :" END);
     area = retrieve_area(ptr);
     ft_putendl(RED "get block :" END);
@@ -47,8 +46,6 @@ void    free_block(t_area *area, t_block *block) {
     ft_putendl("");
     block->busy = 0;
     lock_block(block);
-    // printf("FREE pointer freed, block size %lu\n", block->size);
-    // printf("occupied size of area before clean : %lu/%lu\n", area->occupied, area->size);
     ft_putstr("occupied size of area before clean : ");
     ft_iprint(area->occupied);
     ft_putstr("/");
@@ -60,11 +57,9 @@ void    free_block(t_area *area, t_block *block) {
     ft_putstr("/");
     ft_iprint(area->size);
     ft_putendl("");
-    // printf("occupied size of area after clean : %lu/%lu\n", area->occupied, area->size);
     if (area->full)
         area->full = 0;
     if (area->occupied == 0) {
-        // printf("FREE free area of type %d\n", area->type);
         ft_putstr("freeing area of type ");
         ft_iprint(area->type);
         ft_putendl("");
@@ -87,14 +82,12 @@ void    free_area(t_area *area) {
         ft_putstr("first allocation of type ");
         ft_iprint(area->type);
         ft_putendl(" is empty and freed, link global to the next one");
-        // printf("first allocation of type %d is empty and freed\n", area->type);
         g_type[area->type].first_area = next_area;
     }
     else if (next_area == NULL && prev_area == NULL) {
         ft_putstr("allocation of type ");
         ft_iprint(area->type);
         ft_putendl(" is empty");
-        // printf("allocation of type %d is empty\n", area->type);
         g_type[area->type].first_area = NULL;
     }
     munmap((void *)area, area->size);

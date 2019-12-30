@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/14 15:48:28 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/30 16:35:33 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ size_t	ft_strlen(char *str)
 {
 	char	*tmp;
 
+	// ft_putendl("strlen : str NULL");
+	if (!str) {
+		return(0);
+	}
+
 	tmp = str;
 	while (*str)
 		str++;
@@ -82,12 +87,19 @@ void		ft_umaxtoa_base(unsigned long long nb, int nb_base)
 {
 	long int				i;
 	long int				j;
+	int						end;
 	char					str[1000000];
 	char					*base;
 
 	base = "0123456789abcdef";
 	j = 1;
 	i = nb;
+	end = 0;
+	if (nb_base == 16) {
+		str[0] = '0';
+		str[1] = 'x';
+		end = 2;
+	}
 	while (i >= nb_base)
 	{
 		i /= nb_base;
@@ -96,13 +108,13 @@ void		ft_umaxtoa_base(unsigned long long nb, int nb_base)
 	// if (!(str = (char*)malloc(sizeof(char) * (j + 1))))
 	// 	return (NULL);
 	str[j--] = '\0';
-	while (j >= 0)
+	while (j >= end)
 	{
 		str[j] = base[nb % nb_base];
 		nb /= nb_base;
 		j--;
 	}
-	ft_putendl((const char*)str);
+	ft_putstr((char*)str);
 	// return (str);
 }
 

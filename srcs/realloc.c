@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/29 19:54:49 by IsMac            ###   ########.fr       */
+/*   Updated: 2019/12/30 15:34:51 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
         ft_putstr(", free an mergeable with the current one of size ");
         ft_iprint(block->size);
         ft_putendl("");
-        // printf("prev block of size %lu free an mergeable with the current one of size %lu\n", block->prev->size, block->size);
         block->busy = 0;
         block = block->prev;
         block->busy = 1;
@@ -49,7 +48,6 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
         ft_putstr(" to size ");
         ft_iprint(block->size);
         ft_putendl("");
-        // printf("block merged/extended from size %lu to size %lu\n", original_size, block->size);
         ft_memcpy(BLOCK_MEM(block), data, original_size);
         lock_block(block);
         area->occupied += block->size - original_size;
@@ -62,7 +60,6 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
         return(BLOCK_MEM(block));
     }
     else {
-        // printf("realloc: asking for new block\n");
         ft_putendl(YELLOW "new block needed, calling malloc:" END);
         if ((new_ptr = malloc(size)) == NULL)
             return(NULL);
@@ -75,7 +72,6 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
         ft_iprint(area->size);
         ft_putendl("");
         ft_putendl(YELLOW "now copy mem");
-        // printf("new block of size %lu\n", size);
         ft_memcpy(new_ptr, data, original_size);
         ft_putendl("memory copied, freeing old one" END);
         // free(BLOCK_MEM(block));
@@ -125,24 +121,35 @@ void                *realloc(void *ptr, size_t size) {
         return(malloc(size));
     }
     else if (size == 0) {
-        ft_putendl("size = 0, freeing ptr" END);
+        ft_putendl("size = 0" END);
+        if (!ptr)
+            return(NULL);
         free(ptr);
-        return(NULL);
+        return(malloc(size));
     }
     aligned_size = align_size(size, 16);
     ft_putstr("asked size : ");
     ft_iprint(aligned_size);
     ft_putendl("" END);
     // printf("realloc: asked aligned_size : %lu\n", aligned_size);
-    if ((area = retrieve_area(ptr)) == NULL)
-        return(NULL);
+    if ((area = retrieve_area(ptr)) == NULL) {
+        ft_putendl("area not found, get new allocation");
+        return(malloc(size));
+    }
+        // return(NULL);
     ft_putendl(YELLOW "trying to find block" END);
     block = retrieve_block(area, ptr);
     if (block->busy == 0)
         return(malloc(size));
     ft_putendl(YELLOW "block found");
     if (choose_pool(aligned_size) != area->type) {
+        ft_putstr("asked size not in ");
+        ft_iprint(area->type);
+        ft_putstr(" type, freeing block and creating new one in area of type ");
+        ft_iprint(choose_pool(aligned_size));
+        ft_putendl(""RED);
         free_block(area, block);
+        ft_putstr(""END);
         return(malloc(size));
     }
     // printf("realloc: area and block found\n");

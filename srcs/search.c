@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:34:50 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/14 16:01:53 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/30 15:08:30 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ t_block *retrieve_block(t_area *area, void *ptr) {
     i = 0;
     block = area->first_block;
     while (block) {
-        // ft_putstr("searching for block n ");
-        // ft_iprint(i);
-        // ft_putendl("");
         if (BLOCK_MEM(block) == ptr) {
             ft_putstr(GREY "coresponding block of size ");
             ft_iprint(block->size);
@@ -69,10 +66,6 @@ t_area  *retrieve_area(void *ptr) {
             block = area->first_block;
             j = 0;
             while (block) {
-                // ft_putstr("searching for block n ");
-                // ft_iprint(j);
-                // ft_putendl("");
-                // printf("searching for block n %d\n", j);
                 if (BLOCK_MEM(block) == ptr) {
                     ft_putstr("coresponding block n ");
                     ft_iprint(j);
