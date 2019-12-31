@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/30 15:18:11 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 15:17:27 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ void        *malloc(size_t size) {
 	t_block	*block;
 
 	ft_putendl(GREEN "==== MALLOC ====");
-	// printf("sizeof t_area : %lu\nsizeof t_block : %lu\n", sizeof(t_area), sizeof(t_block));
-    // printf("asked size size before alignement : %lu\n", size);
 	size = align_size(size, 16);
 	ft_putstr(GREEN "got size of : ");
 	ft_iprint(size);
 	ft_putendl("");
-	// printf("asked size after alignement : %lu\n", size);
     type = choose_pool(size);
 	ft_putstr("got pool of type : ");
 	ft_iprint(type);

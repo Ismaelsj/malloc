@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/31 11:56:31 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 15:30:29 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static t_block    *defragment_block(t_block *block, int type) {
     }
     if (type < LARGE && block->size >= get_pool_size(type) + get_pool_size(type -1)) {
         create_intermediate_block(block, get_pool_size(type));
-        if (block->next && block->next->size >= get_pool_size(type) + get_pool_size(type -1)) {
+        if (block->next && !block->next->busy
+            && block->next->size >= get_pool_size(type) + get_pool_size(type -1)) {
             create_intermediate_block(block->next, get_pool_size(type));
             lock_block(block->next);
         }
@@ -104,12 +105,15 @@ void    free_block(t_area *area, t_block *block) {
     if (area->full)
         area->full = 0;
     if (area->occupied == 0) {
-        show_alloc_mem();
+        // show_alloc_mem();
         ft_putstr("freeing area of type ");
         ft_iprint(area->type);
         ft_putendl("");
         free_area(area);
     }
+    else
+        lock_area(area);
+    ft_putstr("" END);
 }
 
 void    free_area(t_area *area) {
@@ -119,10 +123,14 @@ void    free_area(t_area *area) {
 
     next_area = area->next;
     prev_area = area->prev;
-    if (next_area)
+    if (next_area) {
         next_area->prev = prev_area;
-    if (prev_area)
+        lock_area(next_area);
+    }
+    if (prev_area) {
         prev_area->next = next_area;
+        lock_area(prev_area);
+    }
     if (next_area && prev_area == NULL) {
         ft_putstr("first allocation of type ");
         ft_iprint(area->type);

@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/30 16:58:12 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 15:17:46 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,11 @@ static void         *down_sizing_block(t_area *area, t_block *block, size_t size
 
     original_size = block->size;
     data = BLOCK_MEM(block);
-    // block->size = size;
     ft_putstr("block down sized from ");
     ft_iprint(original_size);
     ft_putstr(" to size ");
     ft_iprint(size);
     ft_putendl("");
-    // printf("block down sized from %lu to %lu\n", original_size, block->size);
     create_intermediate_block(block, size);
     ft_memcpy(BLOCK_MEM(block), data, size);
     lock_block(block);
@@ -131,12 +129,10 @@ void                *realloc(void *ptr, size_t size) {
     ft_putstr("asked size : ");
     ft_iprint(aligned_size);
     ft_putendl("" END);
-    // printf("realloc: asked aligned_size : %lu\n", aligned_size);
     if ((area = retrieve_area(ptr)) == NULL) {
         ft_putendl("area not found, get new allocation");
         return(malloc(size));
     }
-        // return(NULL);
     ft_putendl(YELLOW "trying to find block" END);
     block = retrieve_block(area, ptr);
     if (block->busy == 0)
@@ -152,7 +148,6 @@ void                *realloc(void *ptr, size_t size) {
         ft_putstr(""END);
         return(malloc(size));
     }
-    // printf("realloc: area and block found\n");
     ft_putstr("occupied size of area before realloc : ");
     ft_iprint(area->occupied);
     ft_putstr("/");

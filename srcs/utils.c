@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/31 11:27:01 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 15:26:49 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,9 @@ unsigned int 	crc32(int *key, size_t len) {
 void	lock_block(t_block *block) {
 	size_t len;
 
+	if (!block)
+		return ;
+
 	len = sizeof(block) - sizeof(unsigned int);
 	block->crc32 = crc32((void*)block+sizeof(unsigned int), len);
 }
@@ -184,6 +187,8 @@ unsigned int	get_block_crc32(t_block *block) {
 void	lock_area(t_area *area) {
 	size_t len;
 
+	if (!area)
+		return;
 	len = sizeof(area) - sizeof(unsigned int);
 	area->crc32 = crc32((void*)area+sizeof(unsigned int), len);
 }
