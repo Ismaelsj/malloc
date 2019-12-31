@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/30 16:27:18 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 11:59:53 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char    *do_realloc(char *str, size_t size) {
     // printf(YELLOW "========= Reallocation =========\n");
     // if (str == NULL)
     //     return(NULL);
-    ft_putstr("from size : ");
-    ft_iprint(ft_strlen(str));
-    ft_putstr(", to size : ");
+    // ft_putstr("from size : ");
+    // ft_iprint(ft_strlen(str));
+    ft_putstr("to size : ");
     ft_iprint(size);
     ft_putendl("");
     ft_putstr("size : ");
@@ -90,12 +90,12 @@ int main(void) {
     // }
     // return(0);
 
-    t_test_ptr  ptrs_test[500];
+    t_test_ptr  ptrs_test[100];
     fptr        ftab[3] = {&do_malloc, &do_realloc, &do_free};
     int         nb_action = 100;
     int         lower_ptr = 0, upper_ptr = 999;
     int         lower_act = 0, upper_act = 2;
-    int         nb_iter = 499;
+    int         nb_iter = 99;
     
     // init ptr to NULL
     for (int i=0; i < nb_iter; i++) {
@@ -124,31 +124,31 @@ int main(void) {
 
 
     // random free
-    // for (int k=0; k < (nb_iter - 50); k++) {
-    //     // printf("    ==== random free operation n %d ====\n", k);
-    //     ft_putstr("    ==== random free operation n ");
-    //     ft_iprint(k);
-    //     ft_putendl(" ====");
-    //     size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
-    //     if (ptrs_test[ptr].str != NULL)
-    //         do_free(ptrs_test[ptr].str);
-    // }
+    for (int k=0; k < (nb_iter - 50); k++) {
+        // printf("    ==== random free operation n %d ====\n", k);
+        ft_putstr("    ==== random free operation n ");
+        ft_iprint(k);
+        ft_putendl(" ====");
+        size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
+        if (ptrs_test[ptr].str != NULL)
+            do_free(ptrs_test[ptr].str);
+    }
 
     // random realloc
-    // for (int k=0; k < (nb_iter - 50); k++) {
-    //     // printf("    ==== realloc operation n %d ====\n", k);
-    //     ft_putstr("    ==== random realloc operation n ");
-    //     ft_iprint(k);
-    //     ft_putendl(" ====");
-    //     size_t size = (rand() % (5000 - 4 + 1)) + 4;
-    //     size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
-    //     ptrs_test[ptr].str = do_realloc(ptrs_test[ptr].str, size);
-    //     if (ptrs_test[ptr].str == NULL)
-    //         ft_putendl("********* REALLOC RETURNED NULL PTR *********");
-    // }
+    for (int k=0; k < (nb_iter - 50); k++) {
+        // printf("    ==== realloc operation n %d ====\n", k);
+        ft_putstr("    ==== random realloc operation n ");
+        ft_iprint(k);
+        ft_putendl(" ====");
+        size_t size = (rand() % (5000 - 4 + 1)) + 4;
+        size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
+        ptrs_test[ptr].str = do_realloc(ptrs_test[ptr].str, size);
+        if (ptrs_test[ptr].str == NULL)
+            ft_putendl("********* REALLOC RETURNED NULL PTR *********");
+    }
 
 
-    show_alloc_mem();
+    // show_alloc_mem();
 
 
     // free
@@ -160,6 +160,8 @@ int main(void) {
         if (ptrs_test[k].str != NULL)
             do_free(ptrs_test[k].str);
     }
+
+    // show_alloc_mem();
 
     // t_block *block;
     // t_area  *area;

@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/30 16:35:33 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 11:27:01 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,16 @@ void			ft_putstr(char *str)
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
+}
+
+size_t			get_pool_size(int type) {
+
+	if (type == TINY)
+		return(TINY_BLOCK);
+	else if (type == SMALL)
+		return(SMALL_BLOCK);
+	else
+		return(0);
 }
 
 void 			ft_iprint(int n) {

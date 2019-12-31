@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/30 16:30:16 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 11:59:39 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,38 +36,27 @@ t_block             *check_free_block(t_area *area, size_t size) {
         if (get_block_crc32(block) != block->crc32) {
             ft_putstr("block n ");
             ft_iprint(i);
-            ft_putendl("corrupted." END);
+            ft_putendl(" corrupted." END);
             return(NULL);
         }
         // printf("    block n %d of size %lu, busy %d\n", i, block->size, block->busy);
-        ft_putstr("            block n ");
-        ft_iprint(i);
-        ft_putstr(" of size ");
-        ft_iprint(block->size);
-        ft_putstr(" at addr : ");
-        ft_umaxtoa_base((unsigned long long)block, 16);
-        ft_putendl("");
-        ft_putstr("         CRC32 : ");
-        ft_umaxtoa_base((unsigned long long)crc32((void*)block+sizeof(unsigned int), 12), 10);
-        ft_putendl("");
+        // ft_putstr("            block n ");
+        // ft_iprint(i);
+        // ft_putstr(" of size ");
+        // ft_iprint(block->size);
+        // ft_putstr(" at addr : ");
+        // ft_umaxtoa_base((unsigned long long)block, 16);
+        // ft_putendl("");
+        // ft_putstr("         CRC32 : ");
+        // ft_umaxtoa_base((unsigned long long)crc32((void*)block+sizeof(unsigned int), 12), 10);
+        // ft_putendl("");
         if (block->busy == 0) {
-            ft_putstr("            block not busy of size : ");
+            ft_putstr("            block n ");
+            ft_iprint(i);
+            ft_putstr(" not busy of size ");
             ft_iprint(block->size);
             ft_putendl("");
-            if (block->size < size) {
-                // printf("found unused block of size %lu, try to merge/extend it:\n", block->size);
-                ft_putendl("            found block to small, try to merge/extend blocks :" END);
-                if (check_mergeable_block(area, block, size) == 1) {
-                    ft_putendl(MAGENTA "            block merged/extended, returning it" END);
-                    lock_block(block);
-                    return(block);
-                }
-                else {
-                    ft_putendl(MAGENTA "            block not mergeable or extendable");
-                    // sleep(1);
-                }
-            }
-            else if (block->size >= size) {
+            if (block->size >= size) {
                 // printf("found unused block of size %lu\n", block->size);
                 if (most_fited_block == NULL || block->size < most_fited_block->size) {
                     ft_putstr("            found big enough block of size ");

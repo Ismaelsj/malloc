@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/30 15:08:49 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 10:46:54 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int      merge_existing_block(t_block *block, size_t size) {
         block->size = rest_size + size;
         block->busy = 1;
         ft_putstr("got a rest of size ");
-        ft_iprint(rest_size);
+        ft_iprint(rest_size - sizeof(t_block));
         ft_putendl("");
         // printf("new merged block of size %lu\n", block->size);
         create_intermediate_block(block, size);
@@ -61,7 +61,7 @@ void        create_intermediate_block(t_block *block, size_t wanted_size) {
     rest_size = block->size - wanted_size;
 
     ft_putstr("rest size ");
-    ft_iprint(rest_size);
+    ft_iprint(rest_size - sizeof(t_block));
     ft_putendl("");
 
     if (block->size > wanted_size && rest_size > sizeof(t_block)) {

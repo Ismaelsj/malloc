@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:09:31 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/30 16:38:11 by isidibe-         ###   ########.fr       */
+/*   Updated: 2019/12/31 12:08:16 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void            show_area_info(t_area *area) {
     else
         ft_putstr("LARGE :");
     ft_umaxtoa_base((unsigned long long)AREA_MEM(area), 16);
+    ft_putendl("");
 }
 
 void            show_block_info(t_block *block) {
@@ -31,7 +32,13 @@ void            show_block_info(t_block *block) {
     ft_umaxtoa_base((unsigned long long)(BLOCK_NEXT(block) - 1), 16);
     ft_putstr(" : ");
     ft_umaxtoa_base((unsigned long long)block->size, 10);
-    ft_putendl(" octets");
+    // ft_putendl(" octets");
+    // bonus info
+    ft_putstr(" octets -> ");
+    if (block->busy)
+        ft_putendl("occupied");
+    else
+        ft_putendl("free");
 }
 
 void            show_total(size_t total) {
