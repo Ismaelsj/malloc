@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2019/12/31 11:59:53 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/02 13:15:20 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,16 @@ typedef struct		s_test_ptr
 
 int main(void) {
 
-    printf("%lu\n", align_size(0, 16));
+    // t_block *block;
 
+    // printf("%lu\n", align_size(sizeof(t_block), 16));
+    // printf("%lu\n", sizeof(t_block), 16);
+    // printf("%lu\n", align_size(sizeof(t_area), 16));
+    // printf("%lu\n", sizeof(t_area), 16);
+    // char *str;
+
+    // str = (char *)malloc(sizeof(char) * 10);
+    // return(0);
     // char *tmp = "Bonjour";
     // char *tmp2 = "yahyahyah aifu ruhseru hweur hewger reg reugweur giwoeubrguberwub goeurybgouyrb oeuyrbg";
     // char *str;
@@ -90,12 +98,14 @@ int main(void) {
     // }
     // return(0);
 
-    t_test_ptr  ptrs_test[100];
+    t_test_ptr  ptrs_test[200];
     fptr        ftab[3] = {&do_malloc, &do_realloc, &do_free};
     int         nb_action = 100;
     int         lower_ptr = 0, upper_ptr = 999;
     int         lower_act = 0, upper_act = 2;
-    int         nb_iter = 99;
+    int         nb_iter = 199;
+    int         max_alloc = 6024;
+    int         min_alloc = 16;
     
     // init ptr to NULL
     for (int i=0; i < nb_iter; i++) {
@@ -116,7 +126,7 @@ int main(void) {
         ft_putstr("    ==== malloc operation n ");
         ft_iprint(k);
         ft_putendl(" ====");
-        size_t size = (rand() % (5000 - 4 + 1)) + 4;
+        size_t size = (rand() % (max_alloc - min_alloc + 1)) + min_alloc;
         ptrs_test[k].str = do_malloc(ptrs_test[k].str, size);
         if (ptrs_test[k].str == NULL)
             ft_putendl("********* MALLOC RETURNED NULL PTR *********");
@@ -131,7 +141,21 @@ int main(void) {
         ft_putendl(" ====");
         size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
         if (ptrs_test[ptr].str != NULL)
-            do_free(ptrs_test[ptr].str);
+            ptrs_test[ptr].str = do_free(ptrs_test[ptr].str);
+    }
+
+    // random malloc
+    for (int k=0; k <= nb_iter; k++) {
+        ft_putstr("    ==== random malloc operation n ");
+        ft_iprint(k);
+        ft_putendl(" ====");
+        size_t size = (rand() % (max_alloc - min_alloc + 1)) + min_alloc;
+        size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
+        if (ptrs_test[ptr].str == NULL) {
+            ptrs_test[ptr].str = do_malloc(ptrs_test[ptr].str, size);
+            if (ptrs_test[ptr].str == NULL)
+                ft_putendl("********* MALLOC RETURNED NULL PTR *********");
+        }
     }
 
     // random realloc
@@ -140,7 +164,7 @@ int main(void) {
         ft_putstr("    ==== random realloc operation n ");
         ft_iprint(k);
         ft_putendl(" ====");
-        size_t size = (rand() % (5000 - 4 + 1)) + 4;
+        size_t size = (rand() % (max_alloc - min_alloc + 1)) + min_alloc;
         size_t ptr = (rand() % (nb_iter - 0 + 1)) + 0;
         ptrs_test[ptr].str = do_realloc(ptrs_test[ptr].str, size);
         if (ptrs_test[ptr].str == NULL)
@@ -148,7 +172,7 @@ int main(void) {
     }
 
 
-    // show_alloc_mem();
+    show_alloc_mem();
 
 
     // free

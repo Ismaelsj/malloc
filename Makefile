@@ -6,7 +6,7 @@
 #    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2019/12/30 16:27:45 by isidibe-         ###   ########.fr        #
+#    Updated: 2020/01/02 12:43:10 by isidibe-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,6 @@ odir:
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	@echo " - Compiling $<"
 	$(CC) $(CFLAGS) -I $(INCLUDES_PATH) -o $@ -c $<
-	$(CC) -I $(INCLUDES_PATH) -o $@ -c $<
 
 clean:
 	@echo " - Cleaning objs"

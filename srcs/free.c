@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/31 15:30:29 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/02 16:06:47 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,24 @@
 
 
 
-static t_block    *defragment_block(t_block *block, int type) {
+t_block    *defragment_block(t_block *block, int type) {
     
     t_block *tmp;
 
-    if (block->next && !block->next->busy) {
+    // show_alloc_mem();
+    ft_putstr("defragmenting block of size ");
+    ft_iprint(block->size);
+    ft_putendl("");
+    if (block && block->next && block->size < get_pool_size(type) && !block->next->busy) {
         tmp = block->next;
         block->next = tmp->next;
         if (tmp->next) {
             tmp->next->prev = block;
             lock_block(tmp->next);
         }
-        block->size += tmp->size + sizeof(t_block);
+        block->size += tmp->size + align_size(sizeof(t_block), 16);
     }
-    if (block->prev && !block->prev->busy) {
+    if (block && block->prev && block->size < get_pool_size(type) && !block->prev->busy) {
         tmp = block;
         block = block->prev;
         block->next = tmp->next;
@@ -37,13 +41,16 @@ static t_block    *defragment_block(t_block *block, int type) {
             tmp->next->prev = block;
             lock_block(block->next);
         }
-        block->size += tmp->size + sizeof(t_block);
+        block->size += tmp->size + align_size(sizeof(t_block), 16);
     }
-    if (type < LARGE && block->size >= get_pool_size(type) + get_pool_size(type -1)) {
-        create_intermediate_block(block, get_pool_size(type));
+    if (block && type < LARGE && block->size >= get_pool_size(type) + get_pool_size(type -1)) {
+        ft_putstr("creating intermediate bock of size ");
+        ft_iprint(block->size);
+        ft_putendl("");
+        create_intermediate_block(block, get_pool_size(type), type);
         if (block->next && !block->next->busy
             && block->next->size >= get_pool_size(type) + get_pool_size(type -1)) {
-            create_intermediate_block(block->next, get_pool_size(type));
+            create_intermediate_block(block->next, get_pool_size(type), type);
             lock_block(block->next);
         }
     }
@@ -87,16 +94,17 @@ void    free_block(t_area *area, t_block *block) {
     ft_putstr("/");
     ft_iprint(area->size);
     ft_putendl("");
-    area->occupied -= sizeof(t_block) + block->size;
+    area->occupied -= align_size(sizeof(t_block), 16) + block->size;
     ft_putstr("occupied size of area after clean : ");
     ft_iprint(area->occupied);
     ft_putstr("/");
     ft_iprint(area->size);
     ft_putendl("");
-    block->busy = 0;
     ft_putstr("defrangmanting block with size : ");
     ft_iprint(block->size);
     ft_putendl("");
+    block->busy = 0;
+    show_alloc_mem();
     block = defragment_block(block, area->type);
     ft_putstr(RED "defrangmented block of size : ");
     ft_iprint(block->size);

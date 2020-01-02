@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/31 15:17:27 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/02 12:25:26 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void        *malloc(size_t size) {
 	ft_putstr("got pool of type : ");
 	ft_iprint(type);
 	ft_putendl("\nsize aligned, pool chosen, trying to get a block :" END);
-	if ((block = check_free_area(type, size)) == NULL)
+	if ((block = check_free_area(type, size)) == NULL) {
+		ft_putendl("malloc : failed");
 		return(NULL);
+	}
 	ft_putendl(GREEN "got block ready to return" END);
 	return(BLOCK_MEM(block));
 }

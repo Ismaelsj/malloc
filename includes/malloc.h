@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/31 11:27:10 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/02 14:21:14 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 # define TINY_BLOCK		1024
 # define SMALL_BLOCK	4096
 
-# define BLOCK_MEM(block)       (void *)(block + 1)
-# define AREA_MEM(area)         (void *)(area + 1)
+// # define BLOCK_MEM(block)       (void *)(block + 1)
+# define BLOCK_MEM(block)       (void *)(block) + align_size(sizeof(t_block), 16)
+// # define AREA_MEM(area)         (void *)(area + 1)
+# define AREA_MEM(area)         (void *)(area) + align_size(sizeof(t_area), 16)
 # define BLOCK_NEXT(block)      BLOCK_MEM(block) + block->size
 # define AREA_NEXT(area)        AREA_MEM(area) + area->size
 
@@ -101,12 +103,13 @@ void        init_block(t_block *block, size_t size);
 
 // merge block
 int          check_mergeable_block(t_area *area, t_block *block, size_t size);
-void        create_intermediate_block(t_block *block, size_t wanted_size);
+void        create_intermediate_block(t_block *block, size_t wanted_size, int type);
 
 // free
 void    check_free_alloc(t_block *block, size_t size);
 void    free_area(t_area *area);
 void    free_block(t_area *area, t_block *block);
+t_block    *defragment_block(t_block *block, int type);
 
 // show allocation
 void    show_alloc_mem(void);

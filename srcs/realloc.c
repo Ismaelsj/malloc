@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/31 15:17:46 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/02 14:40:30 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
     }
     else {
         ft_putendl(YELLOW "new block needed, calling malloc:" END);
-        if ((new_ptr = malloc(size)) == NULL)
+        if ((new_ptr = malloc(size)) == NULL) {
+            // ft_putendl("realloc : malloc failed");
             return(NULL);
+        }
         ft_putendl(YELLOW "got new block of size ");
         ft_iprint(size);
         ft_putendl("");
@@ -94,7 +96,7 @@ static void         *down_sizing_block(t_area *area, t_block *block, size_t size
     ft_putstr(" to size ");
     ft_iprint(size);
     ft_putendl("");
-    create_intermediate_block(block, size);
+    create_intermediate_block(block, size, area->type);
     ft_memcpy(BLOCK_MEM(block), data, size);
     lock_block(block);
     area->occupied -= original_size - block->size;
@@ -154,6 +156,11 @@ void                *realloc(void *ptr, size_t size) {
     ft_iprint(area->size);
     ft_putendl("");
     if (aligned_size < block->size) {
+        if (area->type == LARGE) {
+            ft_putendl("freeing large block and creating new one");
+            free_block(area, block);
+            return(malloc(size));
+        }
         ft_putendl("trying to down size block :");
         return(down_sizing_block(area, block, aligned_size));
     }
