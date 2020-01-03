@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 13:27:11 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 15:56:17 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static int      merge_existing_block(t_block *block, size_t size, int type)
 {
     size_t  rest_size;
 
-    if (block->size + block->next->size + align_size(sizeof(t_block), 16) >= size) {
-        rest_size = block->next->size + block->size + align_size(sizeof(t_block), 16) - size;
+    if (block->size + block->next->size + align_size(sizeof(t_block), 16)
+        >= size)
+    {
+        rest_size = block->next->size + block->size\
+                    + align_size(sizeof(t_block), 16) - size;
         ft_putendl("trying to merge block");
         block->next = block->next->next;
         if (block->next) {
@@ -36,7 +39,8 @@ static int      merge_existing_block(t_block *block, size_t size, int type)
     return(0);
 }
 
-void            create_intermediate_block(t_block *block, size_t wanted_size, int type, int defrag)
+void            create_intermediate_block(t_block *block, size_t wanted_size,\
+                                        int type, int defrag)
 {
     t_block *rest;
     size_t  rest_size;
@@ -53,7 +57,9 @@ void            create_intermediate_block(t_block *block, size_t wanted_size, in
     ft_iprint(rest_size - align_size(sizeof(t_block), 16));
     ft_putendl("");
 
-    if (block->size > wanted_size && rest_size > align_size(sizeof(t_block), 16)) {
+    if (block->size > wanted_size && rest_size
+        > align_size(sizeof(t_block), 16))
+    {
         block->size = wanted_size;
         
         ft_putstr("creating intermediate block of size ");
@@ -67,7 +73,8 @@ void            create_intermediate_block(t_block *block, size_t wanted_size, in
         rest->busy = 0;
         rest->prev = block;
         rest->next = block->next;
-        if (rest->next) {
+        if (rest->next)
+        {
             rest->next->prev = rest;
             lock_block(rest->next);
         }

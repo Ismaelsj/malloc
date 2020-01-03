@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 13:28:32 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 15:58:35 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #include <stdio.h>
 #include <string.h>
 
-t_heap           	g_type[3] = {{.type=TINY, .first_area=NULL}, {.type=SMALL, .first_area=NULL}, {.type=LARGE, .first_area=NULL}};
+t_heap           	g_type[3] = {{.type=TINY, .first_area=NULL}, {.type=SMALL,\
+						.first_area=NULL}, {.type=LARGE, .first_area=NULL}};
 
 pthread_mutex_t 	g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void        *malloc(size_t size) {
-
+void        *malloc(size_t size)
+{
     int 	type;
 	t_block	*block;
 

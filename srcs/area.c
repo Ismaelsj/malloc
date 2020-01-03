@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 12:51:27 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 15:48:36 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_block     *check_free_area(int type, size_t size)
     if (g_type[type].first_area == NULL)
     {
         ft_putendl(BLUE "   create new first area" END);
-        g_type[type] = new_heap(type, size);
+        g_type[type] = init_heap(type, size);
     }
     ft_putstr(BLUE "    checking area of type ");
     ft_iprint(type);
@@ -45,7 +45,8 @@ t_block     *check_free_area(int type, size_t size)
         ft_putstr(", occupied size : ");
         ft_iprint(area->occupied);
         ft_putendl("");
-        if (area->occupied + (align_size(sizeof(t_block), 16) + size) <= area->size && !area->full)
+        if (area->occupied + (align_size(sizeof(t_block), 16) + size)
+            <= area->size && !area->full)
         {
             ft_putstr("         foud free area of size ");
             ft_iprint(area->size);
@@ -60,14 +61,12 @@ t_block     *check_free_area(int type, size_t size)
         area = area->next;
     }
     ft_putendl("    get new area" END);
-    if ((area->next = request_memory(AREA_NEXT(area), get_page_size(type, size))) == NULL)
+    if ((area = append_new_area(area, size)) == NULL)
         return(NULL);
     ft_putstr(BLUE "   init new area of size ");
     ft_iprint(size);
     ft_putendl("");
-    init_area(area->next, area, size, type);
     ft_putendl("    area ready, try to find a block :");
-    area = area->next;
     return(get_block(area, size));
 }
 
@@ -78,13 +77,12 @@ t_block     *get_block(t_area *area, size_t size)
     ft_putendl("    try to find a block" END);
     if ((block = check_free_block(area, size)) == NULL)
     {
-        if (!area->next && area->unset_size < align_size(sizeof(t_block), 16) + size)
+        if (!area->next && area->unset_size
+            < align_size(sizeof(t_block), 16) + size)
         {
             ft_putendl("new area needed");
-            if ((area->next = request_memory(AREA_NEXT(area), get_page_size(area->type, size))) == NULL)
+            if ((area = append_new_area(area, size)) == NULL)
                 return(NULL);
-            init_area(area->next, area, size, area->type);
-            area = area->next;
             return(get_block(area, size));
         }
         ft_putendl("no able to find/create block returning NULL");
@@ -102,19 +100,18 @@ t_block     *get_block(t_area *area, size_t size)
     return(block);
 }
 
-void        init_area(t_area *area, t_area *prev, size_t size, int type)
+t_area         *append_new_area(t_area *prev, size_t size)
 {
-    area->first_block = (t_block *)AREA_MEM(area);
-    area->size = get_page_size(type, size);
-    area->type = type;
-    area->unset_size = area->size;
-    area->occupied = 0;
-    area->full = 0;
-    area->prev = prev;
-    area->next = NULL;
-    init_new_block(area->first_block, size);
-    lock_block(area->first_block);
-    area->unset_size -= align_size(sizeof(t_block), 16) + area->first_block->size;
+    t_area *new_area;
+
+    ft_putendl("append new area ");
+    if ((new_area = request_memory(AREA_NEXT(prev),\
+        get_page_size(prev->type, size))) == NULL)
+        return(NULL);
+    init_area(new_area, prev, size, prev->type);
+    prev->next = new_area;
+    lock_area(prev);
+    return(new_area);
 }
 
 t_area      *request_memory(t_area *prev, size_t size)

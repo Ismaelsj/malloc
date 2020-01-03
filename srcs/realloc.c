@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 13:32:10 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 15:53:13 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size)
             pthread_mutex_unlock(&g_mutex);
             return(NULL);
         }
-        ft_putendl(YELLOW "got new block of size ");
+        ft_putstr(YELLOW "got new block of size ");
         ft_iprint(size);
         ft_putendl("");
         ft_putstr("occupied size of area after realloc : ");
@@ -89,8 +89,9 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size)
 }
 
 // line norme ok
-static void         *down_sizing_block(t_area *area, t_block *block, size_t size) {
-    
+static void         *down_sizing_block(t_area *area, t_block *block,\
+                                        size_t size)
+{
     size_t  original_size;
     // t_block *rest;
     void    *data;
@@ -116,18 +117,20 @@ static void         *down_sizing_block(t_area *area, t_block *block, size_t size
     return(BLOCK_MEM(block));
 }
 
-void                *realloc(void *ptr, size_t size) {
-
+void                *realloc(void *ptr, size_t size)
+{
     t_area  *area;
     t_block *block;
     size_t  aligned_size;
 
     ft_putendl(YELLOW "==== REALLOC ====");
-    if (ptr == NULL) {
+    if (ptr == NULL)
+    {
         ft_putendl("ptr NULL, allocate new mem with malloc :" END);
         return(malloc(size));
     }
-    else if (size == 0) {
+    else if (size == 0)
+    {
         ft_putendl("size = 0" END);
         if (!ptr)
             return(NULL);
@@ -139,19 +142,22 @@ void                *realloc(void *ptr, size_t size) {
     ft_iprint(aligned_size);
     ft_putendl("" END);
     pthread_mutex_lock(&g_mutex);
-    if ((area = retrieve_area(ptr)) == NULL) {
+    if ((area = retrieve_area(ptr)) == NULL)
+    {
         ft_putendl("area not found, get new allocation");
         pthread_mutex_unlock(&g_mutex);
         return(malloc(size));
     }
     ft_putendl(YELLOW "trying to find block" END);
     block = retrieve_block(area, ptr);
-    if (block->busy == 0) {
+    if (block->busy == 0)
+    {
         pthread_mutex_unlock(&g_mutex);
         return(malloc(size));
     }
     ft_putendl(YELLOW "block found");
-    if (choose_pool(aligned_size) != area->type) {
+    if (choose_pool(aligned_size) != area->type)
+    {
         ft_putstr("asked size not in ");
         ft_iprint(area->type);
         ft_putstr(" type, freeing block and creating new one in area of type ");
@@ -167,8 +173,10 @@ void                *realloc(void *ptr, size_t size) {
     ft_putstr("/");
     ft_iprint(area->size);
     ft_putendl("");
-    if (aligned_size < block->size) {
-        if (area->type == LARGE) {
+    if (aligned_size < block->size)
+    {
+        if (area->type == LARGE)
+        {
             ft_putendl("freeing large block and creating new one");
             pthread_mutex_unlock(&g_mutex);
             free_block(area, block);
