@@ -6,13 +6,15 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 10:39:00 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 13:32:10 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-static int          check_prev(t_block *block, size_t size) {
+// line norme ok
+static int          check_prev(t_block *block, size_t size)
+{
     if (block == NULL)
         return(0);
     if (block->prev != NULL && !block->prev->busy)
@@ -21,8 +23,8 @@ static int          check_prev(t_block *block, size_t size) {
     return(0);
 }
 
-static void         *up_sizing_block(t_area *area, t_block *block, size_t size) {
-
+static void         *up_sizing_block(t_area *area, t_block *block, size_t size)
+{
     size_t  original_size;
     void    *data;
     t_block    *new_block;
@@ -64,9 +66,8 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
     }
     else {
         ft_putendl(YELLOW "new block needed, calling malloc:" END);
-        // if ((new_block = malloc(size)) == NULL) {
         if ((new_block = check_free_area(choose_pool(size), size)) == NULL) {
-            // ft_putendl("realloc : malloc failed");
+            pthread_mutex_unlock(&g_mutex);
             return(NULL);
         }
         ft_putendl(YELLOW "got new block of size ");
@@ -80,7 +81,6 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
         ft_putendl(YELLOW "now copy mem");
         ft_memcpy(BLOCK_MEM(new_block), data, original_size);
         ft_putendl("memory copied, freeing old one" END);
-        // free(BLOCK_MEM(block));
         pthread_mutex_unlock(&g_mutex);
         free_block(area, block);
         ft_putendl(YELLOW"return mem" END);
@@ -88,6 +88,7 @@ static void         *up_sizing_block(t_area *area, t_block *block, size_t size) 
     }
 }
 
+// line norme ok
 static void         *down_sizing_block(t_area *area, t_block *block, size_t size) {
     
     size_t  original_size;

@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 10:27:28 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 13:05:49 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ t_heap      new_heap(int type, size_t large_size);
 int  	        choose_pool(size_t size);
 size_t			    get_pool_size(int type);
 size_t	        ft_strlen(char *str);
-void	        ft_bzero(void *s, size_t n);
 void	        ft_bchr(void *s, int c, size_t n);
 void	        *ft_memcpy(void *s1, const void *s2, size_t n);
 void	        ft_putendl(char const *s);

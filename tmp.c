@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_global.c                                      :+:      :+:    :+:   */
+/*   tmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/10 13:49:15 by IsMac             #+#    #+#             */
-/*   Updated: 2020/01/03 13:34:17 by isidibe-         ###   ########.fr       */
+/*   Created: 2020/01/03 11:03:55 by isidibe-          #+#    #+#             */
+/*   Updated: 2020/01/03 11:18:01 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc.h"
+// #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
 
-t_heap      new_heap(int type, size_t size)
-{
-    t_area  *new_area;
-    t_heap  new_heap;
+int     main(void) {
 
-    new_area = request_memory(0, get_page_size(type, size));
-    init_area(new_area, NULL, size, type);
-    new_heap.type = type;
-    new_heap.first_area = new_area;
-    lock_area(new_area);
-    return(new_heap);
+    int fd;
+    char buf[20];
+    ssize_t i;
+
+    fd = open("run.sh", O_RDONLY);
+    i = read(fd, buf, 19);
+    printf("%lu bytes : %s\n", i, buf);
+
+    return(0);
 }

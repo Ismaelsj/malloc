@@ -6,21 +6,22 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 10:30:13 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 12:55:24 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
 
-void        init_block(t_block *block, size_t size) {
+void        init_block(t_block *block, size_t size)
+{
     block->size = size;
     block->busy = 1;
     lock_block(block);
 }
 
-t_block             *check_free_block(t_area *area, size_t size) {
-    
+t_block             *check_free_block(t_area *area, size_t size)
+{
     t_block     *block;
     t_block     *most_fited_block;
     size_t      tmp_size;
@@ -31,21 +32,26 @@ t_block             *check_free_block(t_area *area, size_t size) {
     most_fited_block = NULL;
     block = area->first_block;
     ft_putendl(MAGENTA "        loop over blocks");
-    while (block) {
-        if (get_block_crc32(block) != block->crc32) {
+    while (block)
+    {
+        if (get_block_crc32(block) != block->crc32)
+        {
             ft_putstr("block n ");
             ft_iprint(i);
             ft_putendl(" corrupted." END);
             return(NULL);
         }
-        if (block->busy == 0) {
+        if (block->busy == 0)
+        {
             ft_putstr("            block n ");
             ft_iprint(i);
             ft_putstr(" not busy of size ");
             ft_iprint(block->size);
             ft_putendl("");
-            if (block->size >= size) {
-                if (most_fited_block == NULL || block->size < most_fited_block->size) {
+            if (block->size >= size)
+            {
+                if (most_fited_block == NULL || block->size < most_fited_block->size)
+                {
                     ft_putstr("            found big enough block of size ");
                     ft_iprint(block->size);
                     ft_putstr(" for asked size ");
@@ -56,7 +62,8 @@ t_block             *check_free_block(t_area *area, size_t size) {
             }
         }
         i++;
-        if (!block->next) {
+        if (!block->next)
+        {
             ft_putendl("            no next block, exit loop:");
             break;
         }
@@ -66,7 +73,8 @@ t_block             *check_free_block(t_area *area, size_t size) {
         if (((unsigned long long)block - tmp) == 0)
             sleep(1);
     }
-    if (most_fited_block != NULL) {
+    if (most_fited_block != NULL)
+    {
         ft_putendl("        init found block");
         most_fited_block->busy = 1;
         create_intermediate_block(most_fited_block, size, area->type, 1);
@@ -76,7 +84,8 @@ t_block             *check_free_block(t_area *area, size_t size) {
     }
 
     ft_putendl("        no block found, append new one");
-    if (area->unset_size < align_size(sizeof(t_block), 16) + size) {
+    if (area->unset_size < align_size(sizeof(t_block), 16) + size)
+    {
         ft_putendl("No enough space to append a new block");
         return(NULL);
     }
@@ -88,8 +97,8 @@ t_block             *check_free_block(t_area *area, size_t size) {
     return(block->next);
 }
 
-t_block         *append_new_block(t_block *prev, size_t size) {
-
+t_block         *append_new_block(t_block *prev, size_t size)
+{
     t_block *new_block;
 
     ft_putendl("append new block ");
@@ -99,12 +108,11 @@ t_block         *append_new_block(t_block *prev, size_t size) {
     new_block->next = NULL;
     new_block->busy = 1;
     lock_block(new_block);
-
     return(new_block);
 }
 
-void            init_new_block(t_block *new_block, size_t size) {
-
+void            init_new_block(t_block *new_block, size_t size)
+{
     new_block->size = size;
     new_block->busy = 0;
     new_block->prev = NULL;

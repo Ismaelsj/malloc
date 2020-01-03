@@ -6,14 +6,14 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:09:31 by isidibe-          #+#    #+#             */
-/*   Updated: 2019/12/31 13:58:28 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 12:37:04 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void            show_area_info(t_area *area) {
-
+void    show_area_info(t_area *area)
+{
     if (area->type == TINY)
         ft_putstr("TINY :");
     else if (area->type == SMALL)
@@ -24,32 +24,26 @@ void            show_area_info(t_area *area) {
     ft_putendl("");
 }
 
-void            show_block_info(t_block *block) {
-
+void    show_block_info(t_block *block)
+{
     ft_putstr("    ");
     ft_umaxtoa_base((unsigned long long)BLOCK_MEM(block), 16);
     ft_putstr(" - ");
     ft_umaxtoa_base((unsigned long long)(BLOCK_NEXT(block) - 1), 16);
     ft_putstr(" : ");
     ft_umaxtoa_base((unsigned long long)block->size, 10);
-    // ft_putendl(" octets");
-    // bonus info
-    ft_putstr(" octets -> ");
-    if (block->busy)
-        ft_putendl("occupied");
-    else
-        ft_putendl("free");
+    ft_putendl(" octets -> ");
 }
 
-void            show_total(size_t total) {
-    
+void    show_total(size_t total)
+{   
     ft_putstr("Total : ");
     ft_umaxtoa_base((unsigned long long)total, 10);
     ft_putendl(" octets");
 }
 
-void			show_alloc_mem(void) {
-
+void    show_alloc_mem(void)
+{
     t_area  *area;
     t_block *block;
     size_t  total;
@@ -57,18 +51,20 @@ void			show_alloc_mem(void) {
 
     type = 0;
     total = 0;
-    while (type < 3) {
+    while (type < 3)
+    {
         area = g_type[type].first_area;
-        while (area) {
+        while (area)
+        {
             show_area_info(area);
             block = area->first_block;
-            while (block) {
+            while (block)
+            {
                 show_block_info(block);
                 total += block->size;
                 block = block->next;
             }
             area = area->next;
-            ft_putendl("");
         }
         type++;
     }

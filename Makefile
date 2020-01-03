@@ -6,7 +6,7 @@
 #    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2020/01/02 12:43:10 by isidibe-         ###   ########.fr        #
+#    Updated: 2020/01/03 13:25:20 by isidibe-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ SRCS_NAME = block.c \
 			size.c \
 			search.c \
 			show_alloc_mem.c \
+			crc32.c \
+			print_values.c \
 			utils.c
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
