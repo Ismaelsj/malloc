@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/02 15:37:37 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 10:30:13 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_block             *check_free_block(t_area *area, size_t size) {
     if (most_fited_block != NULL) {
         ft_putendl("        init found block");
         most_fited_block->busy = 1;
-        create_intermediate_block(most_fited_block, size, area->type);
+        create_intermediate_block(most_fited_block, size, area->type, 1);
         init_block(most_fited_block, size);
         ft_putendl(MAGENTA "        returning block" END);
         return(most_fited_block);

@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/02 16:24:04 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 10:30:39 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ static int      merge_existing_block(t_block *block, size_t size, int type) {
         ft_iprint(rest_size - align_size(sizeof(t_block), 16));
         ft_putendl("");
         // if (area->type < LARGE && block->size >= get_pool_size(area->type) + get_pool_size(area->type -1))
-        create_intermediate_block(block, size, type);
+        create_intermediate_block(block, size, type, 1);
         return(1);
     }
     ft_putendl("blocks not mergeable");
     return(0);
 }
 
-void        create_intermediate_block(t_block *block, size_t wanted_size, int type) {
+void        create_intermediate_block(t_block *block, size_t wanted_size, int type, int defrag) {
 
     t_block *rest;
     size_t  rest_size;
@@ -76,7 +76,8 @@ void        create_intermediate_block(t_block *block, size_t wanted_size, int ty
             lock_block(rest->next);
         }
         ft_iprint(type);
-        // rest = defragment_block(rest, type);
+        if (defrag)
+            rest = defragment_block(rest, type);
         block->next = rest;
         lock_block(rest);
     }

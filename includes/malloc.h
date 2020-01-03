@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/02 14:21:14 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 10:27:28 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/mman.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <pthread.h>
 
 # include <stdlib.h>
 
@@ -88,6 +89,9 @@ void    *malloc(size_t size);
 void    *realloc(void *ptr, size_t size);
 void    show_alloc_mem();
 
+// multithreading handler
+extern pthread_mutex_t	g_mutex;
+
 // areas
 t_block     *check_free_area(int type, size_t size);
 // void        init_area(t_area *area, t_area *prev, size_t size, int type, size_t original_size);
@@ -103,7 +107,7 @@ void        init_block(t_block *block, size_t size);
 
 // merge block
 int          check_mergeable_block(t_area *area, t_block *block, size_t size);
-void        create_intermediate_block(t_block *block, size_t wanted_size, int type);
+void        create_intermediate_block(t_block *block, size_t wanted_size, int type, int defrag);
 
 // free
 void    check_free_alloc(t_block *block, size_t size);

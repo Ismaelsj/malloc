@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/02 16:06:47 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/03 10:30:23 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ t_block    *defragment_block(t_block *block, int type) {
         ft_putstr("creating intermediate bock of size ");
         ft_iprint(block->size);
         ft_putendl("");
-        create_intermediate_block(block, get_pool_size(type), type);
+        create_intermediate_block(block, get_pool_size(type), type, 0);
         if (block->next && !block->next->busy
             && block->next->size >= get_pool_size(type) + get_pool_size(type -1)) {
-            create_intermediate_block(block->next, get_pool_size(type), type);
+            create_intermediate_block(block->next, get_pool_size(type), type, 0);
             lock_block(block->next);
         }
     }
@@ -68,6 +68,7 @@ void            free(void *ptr) {
         ft_putendl("ptr NULL" END);
         return ;
     }
+    pthread_mutex_lock(&g_mutex);
     ft_putendl("get area :" END);
     area = retrieve_area(ptr);
     ft_putendl(RED "get block :" END);
@@ -76,7 +77,8 @@ void            free(void *ptr) {
         ft_putendl(RED "got area and block, freeing :");
         free_block(area, block);
     }
-    else
+    pthread_mutex_unlock(&g_mutex);
+    // else
         ft_putendl(RED "no block found" END);
 }
 
@@ -104,7 +106,7 @@ void    free_block(t_area *area, t_block *block) {
     ft_iprint(block->size);
     ft_putendl("");
     block->busy = 0;
-    show_alloc_mem();
+    // show_alloc_mem();
     block = defragment_block(block, area->type);
     ft_putstr(RED "defrangmented block of size : ");
     ft_iprint(block->size);
