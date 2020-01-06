@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2020/01/02 13:15:20 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/06 10:24:49 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,11 @@ int main(void) {
     for (int i=0; i < nb_iter; i++) {
         ptrs_test[i].str = NULL;
     }
+
+    char *str;
+
+    str = (char*)calloc(10, 10);
+    return(0);
 
     // // random operations
     // for (int j = 0; j < nb_action; j++) {

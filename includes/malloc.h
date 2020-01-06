@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 15:45:47 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/06 11:22:55 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 #define MAGENTA "\x1b[35m"  // block
 #define CYAN    "\x1b[36m"  // merge block
 #define GREY    "\x1b[90m"  // search block
+#define UNKNOWN    "\x1b[91m"  // search block
 #define END     "\x1b[0m"   
 
 // # define AREA_LIMIT(area, block, size) BLOCK_MEM(first_block) + area->size
@@ -87,6 +88,7 @@ extern t_heap           g_type[3];
 void    free(void *ptr);
 void    *malloc(size_t size);
 void    *realloc(void *ptr, size_t size);
+void    *calloc(size_t nmemb, size_t size);
 void    show_alloc_mem();
 
 // multithreading handler
@@ -137,6 +139,7 @@ int  	        choose_pool(size_t size);
 size_t			    get_pool_size(int type);
 size_t	        ft_strlen(char *str);
 void	        ft_bchr(void *s, int c, size_t n);
+void		    ft_bzero(void *s, size_t n);
 void	        *ft_memcpy(void *s1, const void *s2, size_t n);
 void	        ft_putendl(char const *s);
 void            ft_iprint(int n);

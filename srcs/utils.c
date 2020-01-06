@@ -6,7 +6,7 @@
 /*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2020/01/03 13:28:52 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/01/06 10:19:46 by isidibe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ void		ft_bchr(void *s, int c, size_t n)
 	while (n > 0)
 	{
 		*d++ = c;
+		n--;
+	}
+}
+
+void		ft_bzero(void *s, size_t n)
+{
+	unsigned char	*d;
+
+	d = (unsigned char *)s;
+	while (n > 0)
+	{
+		*d++ = '\0';
 		n--;
 	}
 }

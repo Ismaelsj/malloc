@@ -6,7 +6,7 @@
 #    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2020/01/03 15:28:39 by isidibe-         ###   ########.fr        #
+#    Updated: 2020/01/06 10:26:41 by isidibe-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS_NAME = block.c \
 			area.c \
 			malloc.c \
 			realloc.c \
+			calloc.c \
 			free.c \
 			merge_block.c \
 			size.c \
