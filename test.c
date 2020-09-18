@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:55:19 by IsMac             #+#    #+#             */
-/*   Updated: 2020/01/06 10:24:49 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/09/18 13:40:42 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc.h"
+#include "includes/malloc.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -97,6 +97,7 @@ int main(void) {
     //     i++;
     // }
     // return(0);
+    printf("======================= Malloc test =======================\n");
 
     t_test_ptr  ptrs_test[200];
     fptr        ftab[3] = {&do_malloc, &do_realloc, &do_free};
@@ -115,7 +116,7 @@ int main(void) {
     char *str;
 
     str = (char*)calloc(10, 10);
-    return(0);
+    // return(0);
 
     // // random operations
     // for (int j = 0; j < nb_action; j++) {

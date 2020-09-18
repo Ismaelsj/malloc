@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/06 11:22:55 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/09/18 13:10:02 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 
 # define NB_BLOCKS		100
 
-# define TINY_BLOCK		1024
-# define SMALL_BLOCK	4096
+// # define TINY_BLOCK		1024
+# define TINY_BLOCK		128
+// # define SMALL_BLOCK	4096
+# define SMALL_BLOCK	1024
 
 // # define BLOCK_MEM(block)       (void *)(block + 1)
 # define BLOCK_MEM(block)       (void *)(block) + align_size(sizeof(t_block), 16)

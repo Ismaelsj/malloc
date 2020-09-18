@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_alloc_mem.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:09:31 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/03 12:37:04 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:18:03 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void    show_block_info(t_block *block)
     ft_umaxtoa_base((unsigned long long)(BLOCK_NEXT(block) - 1), 16);
     ft_putstr(" : ");
     ft_umaxtoa_base((unsigned long long)block->size, 10);
-    ft_putendl(" octets -> ");
+    ft_putendl(" octets");
 }
 
 void    show_total(size_t total)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/06 11:34:56 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/09/18 13:49:16 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void        *malloc(size_t size)
     int 	type;
 	t_block	*block;
 
-	// ft_putendl(GREEN "==== MALLOC ====");
+	// ft_putendl(GREEN "==== MALLOC ====" END);
+	// ft_iprint(size);
 	size = align_size(size, 16);
 	// ft_putstr(GREEN "got size of : ");
 	// ft_iprint(size);
