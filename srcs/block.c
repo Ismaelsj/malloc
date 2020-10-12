@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/01/06 10:49:11 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/10/12 15:53:39 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 t_block             *check_free_block(t_area *area, size_t size)
 {
     t_block *block;
-    t_block *fited_block;
+    t_block *available_block;
     int     i;
 
     i = 0;
-    fited_block = NULL;
+    available_block = NULL;
     block = area->first_block;
     // ft_putendl(MAGENTA "        loop over blocks");
     while (block)
@@ -32,28 +32,28 @@ t_block             *check_free_block(t_area *area, size_t size)
             return(NULL);
         }
         if (block->busy == 0 && block->size >= size
-            && (fited_block == NULL || block->size < fited_block->size))
+            && (available_block == NULL || block->size < available_block->size))
         {
             // ft_putstr("            found big enough block of size ");
             // ft_iprint(block->size);
             // ft_putstr(" for asked size ");
             // ft_iprint(size);
             // ft_putendl(", saving it");
-            fited_block = block;
+            available_block = block;
         }
         i++;
         if (!block->next)
             break;
         block = block->next;
     }
-    if (fited_block != NULL)
+    if (available_block != NULL)
     {
         // ft_putendl("        init found block");
-        fited_block->busy = 1;
-        create_intermediate_block(fited_block, size, area->type, 1);
-        init_block(fited_block, size);
+        available_block->busy = 1;
+        create_intermediate_block(available_block, size, area->type, 1);
+        init_block(available_block, size);
         // ft_putendl(MAGENTA "        returning block" END);
-        return(fited_block);
+        return(available_block);
     }
 
     // ft_putendl("        no block found, append new one");

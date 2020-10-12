@@ -6,7 +6,7 @@
 /*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/09/18 13:49:16 by IsMac            ###   ########.fr       */
+/*   Updated: 2020/10/12 15:20:51 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void        *malloc(size_t size)
 	t_block	*block;
 
 	// ft_putendl(GREEN "==== MALLOC ====" END);
+	// return(NULL);
 	// ft_iprint(size);
 	size = align_size(size, 16);
 	// ft_putstr(GREEN "got size of : ");
@@ -43,5 +44,6 @@ void        *malloc(size_t size)
 	}
 	pthread_mutex_unlock(&g_mutex);
 	// ft_putendl(GREEN "got block ready to return" END);
+	// show_alloc_mem();
 	return(BLOCK_MEM(block));
 }
