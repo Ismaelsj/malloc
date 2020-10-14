@@ -126,6 +126,7 @@ void                *realloc(void *ptr, size_t size)
     size_t  aligned_size;
 
     // ft_putendl(YELLOW "==== REALLOC ====");
+
     if (ptr == NULL)
     {
         // ft_putendl("ptr NULL, allocate new mem with malloc :" END);
