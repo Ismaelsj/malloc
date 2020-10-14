@@ -17,7 +17,7 @@
 
 
 t_block    *defragment_block(t_block *block, int type)
-{    
+{
     t_block *tmp;
 
     // ft_putstr("defragmenting block of size ");
@@ -62,7 +62,7 @@ t_block    *defragment_block(t_block *block, int type)
 
 // line norme ok
 void            free(void *ptr) {
-    
+
     t_block *block;
     t_area  *area;
 

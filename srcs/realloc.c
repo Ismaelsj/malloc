@@ -97,7 +97,7 @@ static void         *down_sizing_block(t_area *area, t_block *block,\
     // t_block *rest;
     void    *data;
 
-    ft_putendl(YELLOW "==== REALLOC ====");
+    // ft_putendl(YELLOW "==== REALLOC ====");
     original_size = block->size;
     data = BLOCK_MEM(block);
     // ft_putstr("block down sized from ");
@@ -148,6 +148,7 @@ void                *realloc(void *ptr, size_t size)
         // ft_putendl("area not found, get new allocation");
         // pthread_mutex_unlock(&g_mutex);
         // return(malloc(size));
+        free(ptr);
         return(NULL);
     }
     pthread_mutex_lock(&g_mutex);

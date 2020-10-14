@@ -17,7 +17,7 @@ t_block     *check_free_area(int type, size_t size)
     t_area  *area;
     t_block *block;
     int     i;
-    
+
     i = 0;
     if (g_type[type].first_area == NULL)
     {
@@ -71,7 +71,7 @@ t_block     *check_free_area(int type, size_t size)
 }
 
 t_block     *get_block(t_area *area, size_t size)
-{ 
+{
     t_block *block;
 
     // ft_putendl("    try to find a block" END);

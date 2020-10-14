@@ -13,7 +13,7 @@
 #include "malloc.h"
 
 void *calloc(size_t nmemb, size_t size) {
-    
+
     t_block *block;
     int     type;
     size_t  aligned_size;
@@ -39,7 +39,7 @@ void *calloc(size_t nmemb, size_t size) {
 		return(NULL);
 	}
     pthread_mutex_unlock(&g_mutex);
-    // ft_bzero(BLOCK_MEM(block), aligned_size);
+    ft_bzero(BLOCK_MEM(block), aligned_size);
     // ft_putendl(UNKNOWN "got block ready to return" END);
 	return(BLOCK_MEM(block));
 }

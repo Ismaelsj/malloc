@@ -18,7 +18,8 @@ CC = gcc
 
 TEST = test
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIC
+# CFLAGS = -fPIC
 
 SRCS_PATH = srcs/
 
