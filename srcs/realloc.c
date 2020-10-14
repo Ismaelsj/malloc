@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 15:18:03 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/14 18:00:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,34 +79,11 @@ static void			*down_sizing_block(t_area *area, t_block *block,\
 	return (BLOCK_MEM(block));
 }
 
-void				*realloc(void *ptr, size_t size)
+static void			*realloc_block(t_area *area, t_block *block, size_t size)
 {
-	t_area	*area;
-	t_block	*block;
 	size_t	aligned_size;
 
-	if (ptr == NULL)
-		return (malloc(size));
-	else if (size == 0)
-	{
-		if (!ptr)
-			return (NULL);
-		free(ptr);
-		return (malloc(16));
-	}
 	aligned_size = align_size(size, 16);
-	if ((area = retrieve_area(ptr)) == NULL)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	pthread_mutex_lock(&g_mutex);
-	block = retrieve_block(area, ptr);
-	if (block->busy == 0)
-	{
-		pthread_mutex_unlock(&g_mutex);
-		return (malloc(size));
-	}
 	if (choose_pool(aligned_size) != area->type)
 	{
 		pthread_mutex_unlock(&g_mutex);
@@ -124,4 +101,33 @@ void				*realloc(void *ptr, size_t size)
 		return (down_sizing_block(area, block, aligned_size));
 	}
 	return (up_sizing_block(area, block, aligned_size));
+}
+
+void				*realloc(void *ptr, size_t size)
+{
+	t_area	*area;
+	t_block	*block;
+
+	if (ptr == NULL)
+		return (malloc(size));
+	else if (size == 0)
+	{
+		if (!ptr)
+			return (NULL);
+		free(ptr);
+		return (malloc(16));
+	}
+	if ((area = retrieve_area(ptr)) == NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	pthread_mutex_lock(&g_mutex);
+	block = retrieve_block(area, ptr);
+	if (block->busy == 0)
+	{
+		pthread_mutex_unlock(&g_mutex);
+		return (malloc(size));
+	}
+	return (realloc_block(area, block, size));
 }

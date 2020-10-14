@@ -6,11 +6,19 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 15:59:11 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/14 17:35:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+static t_block	*set_available_block(t_block *block, t_area *area, size_t size)
+{
+	block->busy = 1;
+	create_intermediate_block(block, size, area->type, 1);
+	init_block(block, size);
+	return (block);
+}
 
 t_block			*check_free_block(t_area *area, size_t size)
 {
@@ -31,12 +39,7 @@ t_block			*check_free_block(t_area *area, size_t size)
 		block = block->next;
 	}
 	if (available_block != NULL)
-	{
-		available_block->busy = 1;
-		create_intermediate_block(available_block, size, area->type, 1);
-		init_block(available_block, size);
-		return (available_block);
-	}
+		return (set_available_block(available_block, area, size));
 	if (area->unset_size < align_size(sizeof(t_block), 16) + size)
 		return (NULL);
 	block->next = append_new_block(block, size);

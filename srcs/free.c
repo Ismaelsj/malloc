@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 15:33:46 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/14 17:46:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 #include <stdio.h>
 #include <string.h>
 
-t_block			*defragment_block(t_block *block, int t)
+static void		defragment_next_prev_block(t_block *block, t_block *tmp, int t)
 {
-	t_block *tmp;
-
 	if (block && block->next && block->size < get_pool_size(t)
 		&& !block->next->busy)
 	{
@@ -43,6 +41,14 @@ t_block			*defragment_block(t_block *block, int t)
 		}
 		block->size += tmp->size + align_size(sizeof(t_block), 16);
 	}
+}
+
+t_block			*defragment_block(t_block *block, int t)
+{
+	t_block *tmp;
+
+	tmp = block->next;
+	defragment_next_prev_block(block, tmp, t);
 	if (block && t < LARGE
 		&& block->size >= (get_pool_size(t) + get_pool_size(t - 1)))
 	{

@@ -6,23 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2020/10/14 16:24:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/14 17:20:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-void		ft_bchr(void *s, int c, size_t n)
-{
-	unsigned char	*d;
-
-	d = (unsigned char *)s;
-	while (n > 0)
-	{
-		*d++ = c;
-		n--;
-	}
-}
 
 void		ft_bzero(void *s, size_t n)
 {

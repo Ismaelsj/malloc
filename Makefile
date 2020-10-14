@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2020/01/06 10:26:41 by isidibe-         ###   ########.fr        #
+#    Updated: 2020/10/14 17:15:04 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,7 @@ NAME = libft_malloc_$(HOSTTYPE).so
 
 CC = gcc
 
-TEST = test
-
 CFLAGS = -Wall -Wextra -Werror -fPIC
-# CFLAGS = -fPIC
 
 SRCS_PATH = srcs/
 
@@ -69,14 +66,9 @@ clean:
 fclean: clean
 	@echo " - Cleaning executable"
 	@rm -f $(NAME)
-	@rm -f $(TEST)
 	@rm -rf $(OBJS_PATH)
 	@rm -f libft_malloc.so
 
-test:
-	@echo " - Compiling $(TEST)"
-	$(CC) $(TEST).c -o $(TEST) $(NAME) -I $(INCLUDES_PATH)
-
-re: fclean all test
+re: fclean all
 
 .PHONY: clean fclean re odir
