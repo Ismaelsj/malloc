@@ -1,5 +1,7 @@
 #!/bin/sh
-export DYLD_LIBRARY_PATH=/Users/IsMac/Desktop/malloc
-export DYLD_INSERT_LIBRARIES=/Users/IsMac/Desktop/malloc/libft_malloc.so
+export DYLD_LIBRARY_PATH=`pwd`
 export DYLD_FORCE_FLAT_NAMESPACE=1
+export DYLD_INSERT_LIBRARIES=ft_malloc
+export LD_LIBRARY_PATH=`pwd`
+export LD_PRELOAD=`pwd`/libft_malloc.so
 $@

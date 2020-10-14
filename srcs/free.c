@@ -17,7 +17,7 @@
 
 
 t_block    *defragment_block(t_block *block, int type)
-{    
+{
     t_block *tmp;
 
     if (block && block->next && block->size < get_pool_size(type) && !block->next->busy) {
@@ -55,7 +55,7 @@ t_block    *defragment_block(t_block *block, int type)
 }
 
 void            free(void *ptr) {
-    
+
     t_block *block;
     t_area  *area;
 

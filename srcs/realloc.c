@@ -90,7 +90,13 @@ void                *realloc(void *ptr, size_t size)
     }
     aligned_size = align_size(size, 16);
     if ((area = retrieve_area(ptr)) == NULL)
+    {
+        // ft_putendl("area not found, get new allocation");
+        // pthread_mutex_unlock(&g_mutex);
+        // return(malloc(size));
+        free(ptr);
         return(NULL);
+    }
     pthread_mutex_lock(&g_mutex);
     block = retrieve_block(area, ptr);
     if (block->busy == 0)

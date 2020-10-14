@@ -50,7 +50,7 @@ void            create_intermediate_block(t_block *block, size_t wanted_size,\
     // ft_putstr(" and a wanted size of ");
     // ft_iprint(wanted_size);
     // ft_putendl("");
-    
+
     rest_size = block->size - wanted_size;
 
     // ft_putstr("rest size ");
@@ -61,7 +61,7 @@ void            create_intermediate_block(t_block *block, size_t wanted_size,\
         > align_size(sizeof(t_block), 16))
     {
         block->size = wanted_size;
-        
+
         // ft_putstr("creating intermediate block of size ");
         // ft_iprint(rest_size - align_size(sizeof(t_block), 16));
         // ft_putstr(", after block of size ");
@@ -85,7 +85,7 @@ void            create_intermediate_block(t_block *block, size_t wanted_size,\
         lock_block(rest);
     }
     else {
-        // ft_putendl("no rest");   
+        // ft_putendl("no rest");
     }
 }
 
