@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 13:02:22 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 16:22:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:30:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-unsigned int	crc32(int *key, size_t len)
+unsigned int	crc32(unsigned int *key, size_t len)
 {
 	int				j;
 	unsigned int	i;
@@ -22,6 +22,7 @@ unsigned int	crc32(int *key, size_t len)
 
 	i = 0;
 	crc = 0xFFFFFFFF;
+	len /= sizeof(unsigned int);
 	while (i < len)
 	{
 		byte = (unsigned int)key[i];
@@ -44,7 +45,7 @@ void			lock_block(t_block *block)
 
 	if (!block)
 		return ;
-	len = sizeof(block) - sizeof(unsigned int);
+	len = sizeof(t_block) - sizeof(unsigned int);
 	block->crc32 = crc32((void*)block + sizeof(unsigned int), len);
 }
 
@@ -54,7 +55,7 @@ unsigned int	get_block_crc32(t_block *block)
 
 	if (!block)
 		return (0);
-	len = sizeof(block) - sizeof(unsigned int);
+	len = sizeof(t_block) - sizeof(unsigned int);
 	return (crc32((void*)block + sizeof(unsigned int), len));
 }
 

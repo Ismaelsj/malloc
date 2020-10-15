@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:34:50 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 16:15:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:34:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_block			*retrieve_block(t_area *area, void *ptr)
 	block = area->first_block;
 	while (block)
 	{
+		if (get_block_crc32(block) != block->crc32)
+			return (NULL);
 		if (BLOCK_MEM(block) == ptr)
 			return (block);
 		block = block->next;
@@ -43,6 +45,8 @@ t_area			*retrieve_area(void *ptr)
 			block = area->first_block;
 			while (block)
 			{
+				if (get_block_crc32(block) != block->crc32)
+					return (NULL);
 				if (BLOCK_MEM(block) == ptr)
 					return (area);
 				block = block->next;

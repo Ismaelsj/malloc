@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 15:54:03 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:29:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int		merge_existing_block(t_block *block, size_t size, int type)
 		block->size = rest_size + size;
 		block->busy = 1;
 		create_intermediate_block(block, size, type, 1);
+		lock_block(block);
 		return (1);
 	}
 	return (0);
@@ -60,6 +61,7 @@ void			create_intermediate_block(t_block *block,\
 			rest = defragment_block(rest, type);
 		block->next = rest;
 		lock_block(rest);
+		lock_block(block);
 	}
 }
 

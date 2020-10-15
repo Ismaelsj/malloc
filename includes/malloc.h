@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 17:20:31 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:43:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 # include <sys/mman.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <signal.h>
 # include <pthread.h>
 # include <stdlib.h>
 # define NB_BLOCKS			100
 # define TINY_BLOCK			1024
-# define SMALL_BLOCK		4096
+# define SMALL_BLOCK		(TINY_BLOCK * 1000)
 # define BLOCK_MEM(block)	(void *)(block) + align_size(sizeof(t_block), 16)
 # define AREA_MEM(area)		(void *)(area) + align_size(sizeof(t_area), 16)
 # define BLOCK_NEXT(block)	BLOCK_MEM(block) + block->size
@@ -110,7 +111,7 @@ void			ft_putendl(char const *s);
 void			ft_iprint(int n);
 void			ft_putstr(char *str);
 void			ft_umaxtoa_base(unsigned long long nb, int nb_base);
-unsigned int	crc32(int *key, size_t len);
+unsigned int	crc32(unsigned int *key, size_t len);
 unsigned int	get_area_crc32(t_area *area);
 void			lock_area(t_area *area);
 unsigned int	get_block_crc32(t_block *block);

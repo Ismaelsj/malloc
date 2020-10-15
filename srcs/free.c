@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 12:44:09 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 17:46:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:37:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_block			*defragment_block(t_block *block, int t)
 
 	tmp = block->next;
 	defragment_next_prev_block(block, tmp, t);
+	lock_block(block);
 	if (block && t < LARGE
 		&& block->size >= (get_pool_size(t) + get_pool_size(t - 1)))
 	{
