@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 12:07:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 12:46:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <sys/mman.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <signal.h>
 # include <pthread.h>
 # include <stdlib.h>
 # define NB_BLOCKS			100
