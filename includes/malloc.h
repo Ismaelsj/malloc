@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:07:19 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 12:46:00 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 13:34:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ void						*block_mem(t_block *block);
 void						*area_mem(t_area *area);
 void						*block_next(t_block *block);
 void						*area_next(t_area *area);
+
+void						*up_sizing_block(t_area *area, t_block *block,\
+									size_t size);
+void						*down_sizing_block(t_area *area, t_block *block,\
+									size_t size);
 
 t_block						*check_free_area(int type, size_t size);
 void						init_area(t_area *area, t_area *prev, size_t size,\

@@ -6,78 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 11:53:28 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 13:32:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-static int			check_prev(t_block *block, size_t size)
-{
-	if (block == NULL)
-		return (0);
-	if (block->prev != NULL && !block->prev->busy)
-		if (block->prev->size + block->size >= size)
-			return (1);
-	return (0);
-}
-
-static void			*up_sizing_block(t_area *area, t_block *block, size_t size)
-{
-	size_t	original_size;
-	void	*data;
-	t_block	*new_block;
-
-	original_size = block->size;
-	data = block_mem(block);
-	if (block->size >= size)
-	{
-		pthread_mutex_unlock(&g_mutex);
-		return (block_mem(block));
-	}
-	if (check_prev(block, size))
-	{
-		block->busy = 0;
-		block = block->prev;
-		block->busy = 1;
-	}
-	if (check_mergeable_block(area, block, size))
-	{
-		ft_memcpy(block_mem(block), data, original_size);
-		lock_block(block);
-		area->occupied += block->size - original_size;
-		pthread_mutex_unlock(&g_mutex);
-		return (block_mem(block));
-	}
-	else
-	{
-		if ((new_block = check_free_area(choose_pool(size), size)) == NULL)
-		{
-			pthread_mutex_unlock(&g_mutex);
-			return (NULL);
-		}
-		ft_memcpy(block_mem(new_block), data, original_size);
-		pthread_mutex_unlock(&g_mutex);
-		free_block(area, block);
-		return (block_mem(new_block));
-	}
-}
-
-static void			*down_sizing_block(t_area *area, t_block *block,\
-										size_t size)
-{
-	size_t	original_size;
-	void	*data;
-
-	original_size = block->size;
-	data = block_mem(block);
-	create_intermediate_block(block, size, area->type, 1);
-	ft_memcpy(block_mem(block), data, size);
-	lock_block(block);
-	area->occupied -= original_size - block->size;
-	pthread_mutex_unlock(&g_mutex);
-	return (block_mem(block));
-}
 
 static void			*realloc_block(t_area *area, t_block *block, size_t size)
 {

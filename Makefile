@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 16:07:44 by IsMac             #+#    #+#              #
-#    Updated: 2020/10/15 11:59:15 by user42           ###   ########.fr        #
+#    Updated: 2020/10/15 13:32:54 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS_NAME = block.c \
 			calloc.c \
 			free.c \
 			pad.c \
+			scale_block.c \
 			merge_block.c \
 			size.c \
 			search.c \
