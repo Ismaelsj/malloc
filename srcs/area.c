@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:22:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 11:33:21 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:58:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_area		*append_new_area(t_area *prev, size_t size)
 {
 	t_area *new_area;
 
-	if ((new_area = request_memory(AREA_NEXT(prev),\
+	if ((new_area = request_memory(area_next(prev),\
 		get_page_size(prev->type, size))) == NULL)
 		return (NULL);
 	init_area(new_area, prev, size, prev->type);

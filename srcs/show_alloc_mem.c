@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:09:31 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/14 22:30:20 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:58:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void		show_area_info(t_area *area)
 		ft_putstr("SMALL :");
 	else
 		ft_putstr("LARGE :");
-	ft_umaxtoa_base((unsigned long long)AREA_MEM(area), 16);
+	ft_umaxtoa_base((unsigned long long)area_mem(area), 16);
 	ft_putendl("");
 }
 
 void		show_block_info(t_block *block)
 {
 	ft_putstr("    ");
-	ft_umaxtoa_base((unsigned long long)BLOCK_MEM(block), 16);
+	ft_umaxtoa_base((unsigned long long)block_mem(block), 16);
 	ft_putstr(" - ");
-	ft_umaxtoa_base((unsigned long long)(BLOCK_NEXT(block) - 1), 16);
+	ft_umaxtoa_base((unsigned long long)(block_next(block) - 1), 16);
 	ft_putstr(" : ");
 	ft_umaxtoa_base((unsigned long long)block->size, 10);
 	ft_putendl(" octets");

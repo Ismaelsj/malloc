@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 16:55:56 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 11:29:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:57:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			create_intermediate_block(t_block *block,\
 		> align_size(sizeof(t_block), 16))
 	{
 		block->size = wanted_size;
-		rest = BLOCK_NEXT(block);
+		rest = block_next(block);
 		rest->size = rest_size - align_size(sizeof(t_block), 16);
 		rest->busy = 0;
 		rest->prev = block;

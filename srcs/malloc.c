@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:02:11 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 11:34:08 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:53:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void			*malloc(size_t size)
 		return (NULL);
 	}
 	pthread_mutex_unlock(&g_mutex);
-	return (BLOCK_MEM(block));
+	return (block_mem(block));
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:05:27 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 11:29:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:55:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_heap			init_heap(int type, size_t size)
 
 void			init_area(t_area *area, t_area *prev, size_t size, int type)
 {
-	area->first_block = (t_block *)AREA_MEM(area);
+	area->first_block = (t_block *)area_mem(area);
 	area->size = get_page_size(type, size);
 	area->type = type;
 	area->unset_size = area->size;

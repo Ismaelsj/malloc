@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:29:42 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 11:29:26 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:57:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_block			*append_new_block(t_block *prev, size_t size)
 {
 	t_block *new_block;
 
-	new_block = BLOCK_NEXT(prev);
+	new_block = block_next(prev);
 	new_block->size = size;
 	new_block->prev = prev;
 	new_block->next = NULL;
