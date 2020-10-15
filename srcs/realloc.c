@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:15:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 13:32:37 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 16:39:04 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ void				*realloc(void *ptr, size_t size)
 		free(ptr);
 		return (malloc(16));
 	}
+    pthread_mutex_lock(&g_mutex);
 	if ((area = retrieve_area(ptr)) == NULL)
 	{
+        pthread_mutex_unlock(&g_mutex);
 		free(ptr);
 		return (NULL);
 	}
-	pthread_mutex_lock(&g_mutex);
 	block = retrieve_block(area, ptr);
 	if (block->busy == 0)
 	{

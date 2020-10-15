@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: IsMac <IsMac@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 10:03:46 by isidibe-          #+#    #+#             */
-/*   Updated: 2020/10/15 11:53:45 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/15 16:33:11 by IsMac            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		*calloc(size_t nmemb, size_t size)
 		pthread_mutex_unlock(&g_mutex);
 		return (NULL);
 	}
-	pthread_mutex_unlock(&g_mutex);
 	ft_bzero(block_mem(block), aligned_size);
+	pthread_mutex_unlock(&g_mutex);
 	return (block_mem(block));
 }
