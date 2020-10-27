@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidibe- <isidibe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:22:47 by IsMac             #+#    #+#             */
-/*   Updated: 2020/01/06 10:19:46 by isidibe-         ###   ########.fr       */
+/*   Updated: 2020/10/14 17:20:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-void		ft_bchr(void *s, int c, size_t n)
-{
-	unsigned char	*d;
-
-	d = (unsigned char *)s;
-	while (n > 0)
-	{
-		*d++ = c;
-		n--;
-	}
-}
 
 void		ft_bzero(void *s, size_t n)
 {
@@ -52,17 +40,17 @@ size_t		ft_strlen(char *str)
 {
 	char	*tmp;
 
-	if (!str) {
-		return(0);
+	if (!str)
+	{
+		return (0);
 	}
-
 	tmp = str;
 	while (*str)
 		str++;
 	return (str - tmp);
 }
 
-int  	choose_pool(size_t size)
+int			choose_pool(size_t size)
 {
 	if (size <= TINY_BLOCK)
 		return (TINY);
@@ -75,9 +63,9 @@ int  	choose_pool(size_t size)
 size_t		get_pool_size(int type)
 {
 	if (type == TINY)
-		return(TINY_BLOCK);
+		return (TINY_BLOCK);
 	else if (type == SMALL)
-		return(SMALL_BLOCK);
+		return (SMALL_BLOCK);
 	else
-		return(0);
+		return (0);
 }
